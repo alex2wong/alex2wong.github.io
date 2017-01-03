@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://alex2wong.github.io/2017/01/03/DIY%20drone%20game%20with%20es6%20module/</loc>
+    
+    <lastmod>2017-01-03T11:24:13.346Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/02/XSS-and-CSRF2/</loc>
+    
+    <lastmod>2016-12-02T07:05:38.067Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/02/XSS-and-CSRF/</loc>
+    
+    <lastmod>2016-12-02T07:05:09.039Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://alex2wong.github.io/2016/11/29/Monthly-Report/</loc>
     
     <lastmod>2016-11-29T03:00:59.532Z</lastmod>
