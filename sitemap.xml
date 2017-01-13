@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://alex2wong.github.io/tags/index.html</loc>
+    
+    <lastmod>2017-01-13T02:08:17.357Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://alex2wong.github.io/2017/01/03/DIY%20drone%20game%20with%20es6%20module/</loc>
     
     <lastmod>2017-01-03T11:24:13.346Z</lastmod>
