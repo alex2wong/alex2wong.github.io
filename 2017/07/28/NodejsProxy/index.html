@@ -1,0 +1,659 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Nodejs,Proxy," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
+
+Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后端代理解决资源跨域">
+<meta property="og:url" content="http://alex2wong.github.io/2017/07/28/NodejsProxy/index.html">
+<meta property="og:site_name" content="Space Shuttle">
+<meta property="og:description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
+
+Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-07-28T02:59:12.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="后端代理解决资源跨域">
+<meta name="twitter:description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
+
+Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://alex2wong.github.io/2017/07/28/NodejsProxy/"/>
+
+
+
+
+
+  <title> 后端代理解决资源跨域 | Space Shuttle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Space Shuttle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2017/07/28/NodejsProxy/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="alex huang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Space Shuttle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Space Shuttle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                后端代理解决资源跨域
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-28T10:47:31+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="canvas-跨域问题"><a href="#canvas-跨域问题" class="headerlink" title="canvas 跨域问题"></a><strong>canvas 跨域问题</strong></h3><p>如果canvas中所绘制的Image或者资源<strong>有跨域</strong>，则对canvas中的数据进行操作往往会报错，例如在<a href="http://openlayers.org/en/latest/examples/export-map.html" target="_blank" rel="external">地图导出</a>或者操作像素时</p>
+<blockquote>
+<p>Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-origin data.</p>
+</blockquote>
+<p>canvas的CanvasRenderingContext2D属于浏览器中的对象，如果<strong>曾经渲染过</strong>跨域资源。 浏览器就认定canvas已经被污染（tainted）了。问题很常见，所以可以对canvas所加载的资源，特别是图片设置跨域，</p>
+<blockquote>
+<p>image.crossOrigin=”anonymous”;</p>
+</blockquote>
+<p>对image对象的crossOrigin属性<strong>设置anonymous</strong>，那么在image.src= “<a href="http://**.com/*.jpg" target="_blank" rel="external">http://**.com/*.jpg</a>“ 的时候，发送的GET请求，到达对方服务器<em>*.com，如果碰巧对方服务器对这类资源的不限制访问，也就是response header的 Access-Control-Allow-Origin 字段为 “\</em>“ ，那么我们的浏览器可成功获取资源。</p>
+<p>Access-Control-Allow-Origin 这个response header 很常用，确保了服务器对资源的跨域限制。如果需要限定白名单，就直接把白名单的domain或者ip放到value 中。 关于Ol3的切片跨域问题，公瑾大神在<a href="http://www.jianshu.com/p/4beb4057f7be" target="_blank" rel="external">这篇文章</a>中已经说得很清楚了，不再赘述</p>
+<h3 id="请求有跨域限制的服务器资源"><a href="#请求有跨域限制的服务器资源" class="headerlink" title="请求有跨域限制的服务器资源"></a>请求有跨域限制的服务器资源</h3><p>但如果对方服务器限制跨域访问，那不论咱们的前端代码如何设定，都无法绕开。最好的办法之一就是<strong><a href="http://alex2wong.github.io/Jqmap2/proxy.html">后端代理，DEMO</a></strong> ，点左边这个链接可以在线体验下。。（切片走的代理，另外随便输入个公交线路数字，也是走后台代理的）</p>
+<p>在前端需要请求跨域资源时，给URL加上<strong>同域下的后台代理</strong>前缀，让这个请求走代理转发一下。。真心是老技术。所以随便写写，不花心思完善了。以Nodejs为例的写了一个后台代理模块，主要内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">var Proxy = function (req, res) &#123; </div><div class="line">    // proxy the client request.</div><div class="line">    (function() &#123;</div><div class="line">        console.log(&quot;receive client req : &quot;+ req.query[&apos;proxyURI&apos;]);</div><div class="line">        var target = req.query[&apos;proxyURI&apos;];</div><div class="line">        // thisPlace should first check localFile if exists, res localFile directly.. 这边呢，接收到前端的请求，把实际要请求的地址拿到，后台转发。</div><div class="line">        http.get(target, function(response) &#123;  </div><div class="line">            console.log(&quot;Proxy got response: &quot; + response.statusCode);</div><div class="line">            var resContentType = response.headers[&quot;content-type&quot;];</div><div class="line">            res.setHeader(&quot;Content-Type&quot;, resContentType);</div><div class="line">            var buffer = [];</div><div class="line">            response.on(&apos;data&apos;, (chunk) =&gt; &#123;</div><div class="line">                buffer.push(chunk);                </div><div class="line">            &#125;);</div><div class="line">            response.on(&apos;end&apos;, () =&gt; &#123;</div><div class="line">                // Buffer toString. &apos;ascii&apos;/&apos;base64&apos;</div><div class="line">                var buff = Buffer.concat(buffer);</div><div class="line">                for(var k in strategies) &#123;</div><div class="line">                    if (resContentType.indexOf(k) &gt; -1) &#123;</div><div class="line">                        // ready to save buffer to localFile.. 碰到策略中指定的文件类型，在本地缓存下</div><div class="line">                        try &#123;</div><div class="line">                            var ext = resContentType.split(&quot;/&quot;)[1];</div><div class="line">                            var tmpArr = target.split(&quot;/&quot;);</div><div class="line">                            var fileName = tmpArr[tmpArr.length-2] + &quot;_&quot; + tmpArr[tmpArr.length-1] + &quot;.&quot; + ext;</div><div class="line">                            var finalName = &quot;./Asset/tiles/&quot; + fileName;</div><div class="line">                            fs.exists(finalName, function(exists) &#123;</div><div class="line">                                if (exists) &#123;</div><div class="line">                                    // 如果这个文件本地缓存过了，直接发回前端。</div><div class="line">                                    res.sendFile(finalName, &#123;</div><div class="line">                                        root: __dirname</div><div class="line">                                    &#125;);</div><div class="line">                                &#125; else &#123;</div><div class="line">                                    fs.writeFileSync(&quot;./Asset/tiles/&quot; + fileName, buff);</div><div class="line">                                    res.sendFile(finalName, &#123;</div><div class="line">                                        root: __dirname</div><div class="line">                                    &#125;);</div><div class="line">                                &#125;</div><div class="line">                            &#125;);</div><div class="line">                            </div><div class="line">                            return;</div><div class="line">                        &#125; catch (error) &#123;</div><div class="line">                            console.error(&quot;proxyImage error.&quot;);</div><div class="line">                            res.end(&quot;proxyImage error.&quot;);</div><div class="line">                        &#125;                        </div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                // 非二进制文件类型（JSON，HTML等），直接发回字符串</div><div class="line">                res.end(buff.toString());</div><div class="line">            &#125;);</div><div class="line">        &#125;).on(&apos;error&apos;, function(e) &#123;  </div><div class="line">            console.error(&quot;Proxy got error: &quot; + e.message);</div><div class="line">        &#125;);</div><div class="line">    &#125;)()</div><div class="line">&#125;</div><div class="line"></div><div class="line">module.exports = Proxy;</div></pre></td></tr></table></figure></p>
+<p>我记得openlayer2的时候官方有赠送一个python版本的代理，现在ol3好像没了。所以突然发现这个代理还有：</p>
+<p> <strong>切片下载的功能！！</strong>  \(^o^)/，后台会随着前端的请求过程，缓存图片等文件。</p>
+<hr>
+<h3 id="一起搞项目"><a href="#一起搞项目" class="headerlink" title="一起搞项目"></a>一起搞项目</h3><p>这个代理模块拿来改改参数就可以勉强用了。所以需要的弟兄们直接去 <a href="https://github.com/alex2wong/Jqmap2" target="_blank" rel="external">Github项目地址</a> 取用即可</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEMO截图"></p>
+<p>这个项目是最近比较常用的，包括了平日里做的一些小插件和DEMO之类的。比如：</p>
+<ul>
+<li>Openlayer-<a href="https://github.com/alex2wong/Jqmap2/wiki/Openlayer-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E7%9A%84%E6%A0%87%E6%B3%A8" target="_blank" rel="external">实现带碰撞检测的标注</a></li>
+<li>基于canvas的部分模糊插件, <a href="http://alex2wong.github.io/Jqmap2/blur.html">DEMO</a> ，简单封装了个Blurify类，配置可用</li>
+<li>基于Ol2和Jquery Mobile的<a href="http://alex2wong.github.io/Jqmap2/">移动端APP</a> ，这个比较早期</li>
+</ul>
+<p>还有另外一个ThreeJS项目有空也在弄，其实想<strong>基于ES6做一些模块化的ThreeJS开发</strong>，用于搭建三维游戏场景。之前代码写得比较随意，现在必须模块化，不然没法看。。先来个<a href="http://alex2wong.github.io/ThreejsDemo/index2.html">DEMO瞅瞅</a>，数据量大多等会儿，<strong>鼠标右键</strong>拖动场景。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nodejs/" rel="tag"># Nodejs</a>
+          
+            <a href="/tags/Proxy/" rel="tag"># Proxy</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/28/Angular-worktile/" rel="next" title="Angular_worktile和Angular_largeList组件">
+                <i class="fa fa-chevron-left"></i> Angular_worktile和Angular_largeList组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/28/pyCaffee-Init/" rel="prev" title="pyCaffee对象识别上手1">
+                pyCaffee对象识别上手1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="alex huang" />
+          <p class="site-author-name" itemprop="name">alex huang</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/alex2wong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-跨域问题"><span class="nav-number">1.</span> <span class="nav-text">canvas 跨域问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求有跨域限制的服务器资源"><span class="nav-number">2.</span> <span class="nav-text">请求有跨域限制的服务器资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一起搞项目"><span class="nav-number">3.</span> <span class="nav-text">一起搞项目</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alex huang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

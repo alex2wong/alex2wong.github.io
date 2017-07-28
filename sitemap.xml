@@ -2,51 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://alex2wong.github.io/2017/07/28/pyCaffee-Init/</loc>
+    
+    <lastmod>2017-07-28T03:00:12.317Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2017/07/28/Angular-worktile/</loc>
+    
+    <lastmod>2017-07-28T02:59:34.834Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2017/07/28/NodejsProxy/</loc>
+    
+    <lastmod>2017-07-28T02:59:12.318Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/15/DIY%20drone%20game%20with%20es6%20module/</loc>
+    
+    <lastmod>2017-07-28T02:59:00.374Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/04/2%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A8%EF%BC%882%EF%BC%89%EF%BC%81XSRF%E8%B7%A8%E7%AB%99%E4%BC%AA%E9%80%A0%E8%AF%B7%E6%B1%82/</loc>
+    
+    <lastmod>2017-07-28T02:41:23.300Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/02/1%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A8%EF%BC%81XSS%20%E5%92%8C%20XSRF/</loc>
+    
+    <lastmod>2017-07-28T02:37:34.526Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://alex2wong.github.io/tags/index.html</loc>
     
-    <lastmod>2017-01-13T02:08:17.357Z</lastmod>
+    <lastmod>2017-07-28T02:21:29.266Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://alex2wong.github.io/2017/01/03/DIY%20drone%20game%20with%20es6%20module/</loc>
+    <loc>http://alex2wong.github.io/2016/11/29/hello-world/</loc>
     
-    <lastmod>2017-01-03T11:24:13.346Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/12/02/XSS-and-CSRF2/</loc>
-    
-    <lastmod>2016-12-02T07:05:38.067Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/12/02/XSS-and-CSRF/</loc>
-    
-    <lastmod>2016-12-02T07:05:09.039Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/11/29/Monthly-Report/</loc>
-    
-    <lastmod>2016-11-29T03:00:59.532Z</lastmod>
+    <lastmod>2017-07-28T02:21:29.226Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://alex2wong.github.io/2016/11/28/Celebrate-New-Blog/</loc>
     
-    <lastmod>2016-11-28T05:03:10.369Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/11/28/hello-world/</loc>
-    
-    <lastmod>2016-11-28T03:30:00.458Z</lastmod>
+    <lastmod>2017-07-28T02:21:28.989Z</lastmod>
     
   </url>
   

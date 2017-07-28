@@ -1,0 +1,682 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ES6,Webpack," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
+
+这些MV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于ES6的模块化开发">
+<meta property="og:url" content="http://alex2wong.github.io/2016/12/15/DIY drone game with es6 module/index.html">
+<meta property="og:site_name" content="Space Shuttle">
+<meta property="og:description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
+
+这些MV">
+<meta property="og:image" content="https://angular.cn/resources/images/devguide/architecture/overview2.png">
+<meta property="og:updated_time" content="2017-07-28T02:59:00.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于ES6的模块化开发">
+<meta name="twitter:description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
+
+这些MV">
+<meta name="twitter:image" content="https://angular.cn/resources/images/devguide/architecture/overview2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://alex2wong.github.io/2016/12/15/DIY drone game with es6 module/"/>
+
+
+
+
+
+  <title> 基于ES6的模块化开发 | Space Shuttle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Space Shuttle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2016/12/15/DIY drone game with es6 module/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="alex huang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Space Shuttle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Space Shuttle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于ES6的模块化开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-15T10:47:55+08:00">
+                2016-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有<strong>Vue.js 或者Angular.js </strong>等框架约束，这种情况会相对好些。本文记录下<strong>基于ES6 实践模块化开发</strong>的过程，稍后会把文本所用到的代码放到<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github项目</a>上，欢迎各位大神指点。</p>
+<p><img src="https://angular.cn/resources/images/devguide/architecture/overview2.png" alt="Angular.js 架构图"></p>
+<p>这些MVC框架基本都着眼于以数据模型为中心，打造数据驱动的模块化前端应用。框架可能层出不穷，学也学不完，但基本的思想是不变的。以 <a href="https://angular.cn/docs/ts/latest/guide/architecture.html" target="_blank" rel="external">Angular.js 的架构</a> 为例，<strong>Component（组件） 和 Template（HTML模板）</strong> 分别代表了Web App的数据 和 视图两大部分，数据的<strong>存储、更新</strong>过程都是在我们定义的组件中，组件中包含的数据模型更新都会通过<strong>数据绑定</strong>引起视图的更新。</p>
+<p>而用户对用户界面的操作，可以通过事先定义的各种Directive（指令），反馈到数据模型中。比如 ngModel 这样的指令就可用于绑定视图对数据模型的更新。基于Angular这样的框架开发过程中，基本就是不断写组件，写模板，写指令的过程。那么扯远了，Angular 的模块化系统和ES6 的还是有很大差异的。说了半天，框架毕竟是别人团队开发的，你大可去用，从ES6 这样的本源出发去学习实践更加以不变应万变。</p>
+<h3 id="ES6-简单入门"><a href="#ES6-简单入门" class="headerlink" title="ES6 简单入门"></a>ES6 简单入门</h3><p>简单地说，ES6 新的特性可分为以下几点：</p>
+<ul>
+<li>Classes and Modules （这回主要谈一谈模块）</li>
+<li>New methods for strings and Arrays, Promises, Maps, Sets</li>
+<li>Completely new features: Generators, Proxies</li>
+</ul>
+<h4 id="定义Class"><a href="#定义Class" class="headerlink" title="定义Class"></a>定义Class</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">定义一个类</div><div class="line">class Point &#123;</div><div class="line">  constructor(x, y) &#123;</div><div class="line">    this.x = x;</div><div class="line">    this.y = y;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  toString() &#123;</div><div class="line">    return &apos;(&apos; + this.x + &apos;,&apos; + this.y + &apos;)&apos;;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// es6 的class 等同于 function，就是构造函数</div><div class="line">Point.prototype.constructor === Point // true</div><div class="line"></div><div class="line">var point = new Point(2, 3);</div><div class="line">point.toString()</div><div class="line"></div><div class="line">point.hasOwnProperty(&apos;x&apos;) //true</div><div class="line">point.hasOwnProperty(&apos;toString&apos;) // false</div><div class="line">// toString 方法是原型对象Point 的属性, 而不是属于point 实例的属性，是通过查找原型链得来的。</div></pre></td></tr></table></figure>
+<h4 id="es6-私有属性和方法定义"><a href="#es6-私有属性和方法定义" class="headerlink" title="es6 私有属性和方法定义"></a>es6 私有属性和方法定义</h4><p>私有方法可以通过将 function 定义在class 作用域之外<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">// 例如 想要给Point 类一个私有方法</div><div class="line">class Point &#123;</div><div class="line">  constructor(x, y) &#123;</div><div class="line">    this.x = x;</div><div class="line">    this.y = y;</div><div class="line">    this.type = type;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  print () &#123;</div><div class="line">     toString.call(this);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function toString( point ) &#123;</div><div class="line">   return point.x + &quot;,&quot; + point.y;</div><div class="line">&#125;</div><div class="line">var type = &apos;Point&apos;;</div></pre></td></tr></table></figure></p>
+<h4 id="class-静态方法"><a href="#class-静态方法" class="headerlink" title="class 静态方法"></a>class 静态方法</h4><p>上面提及的类 都需要实例化后才能使用，那静态方法可以使我们无需实例化就 通过类直接调用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Format &#123;</div><div class="line">   static transform(jsonStr) &#123;</div><div class="line">     return JSON.parse(jsonStr);</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"> // 静态属性 extension</div><div class="line">Format.extension = &#123;</div><div class="line">  geojson: &quot;.json&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class GeoJSON extends Format &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">GeoJSON.transform(&quot;&#123;&apos;name&apos;: &apos;hello&apos;&#125;&quot;   // 直接调用 静态方法</div></pre></td></tr></table></figure></p>
+<h3 id="ES6转码打包"><a href="#ES6转码打包" class="headerlink" title="ES6转码打包"></a>ES6转码打包</h3><hr>
+<p>由于大部分浏览器还没有支持ES6 模块，所以可采用<strong>Babel 转<br>码</strong> 来把我们的代码转化为es5.</p>
+<blockquote>
+<p>然后用 <strong>Webpack 打包</strong>所有js文件 为一个bundle ，也可以采用<strong>SystemJS</strong>的依赖管理方案，<strong>实现浏览器端的模块加载</strong>。</p>
+</blockquote>
+<p>由于之前在Angular的 实践过程中采用的是 SystemJS，所以这次把两种方法都讨论演示下。需要说明的是，这两种浏览器端加载es6模块的方法都需要<strong>Babel</strong>的支持，根据具体情况可选用 Webpack 或SystemJS。</p>
+<h4 id="模块编写过程"><a href="#模块编写过程" class="headerlink" title="模块编写过程"></a>模块编写过程</h4><p>比如我们现在有 <strong>drone 和 bullet</strong> 两个类，drone 可以通过fire() 方法创建bullet 实例，并且通过一个全局的 RenderBullet 方法计算bullet 轨迹。</p>
+<p>就这么简单的需求，因为drone 和bullet 在我们的游戏应用中是 基础类，所以单独写成模块。<strong>常数变量</strong>至于const.js 中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">// drone.js</div><div class="line">import Const from &apos;./const&apos;;</div><div class="line">import Bullet from &apos;./bullet&apos;;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Drone class with control method.</div><div class="line"> */</div><div class="line">export default class Drone &#123;</div><div class="line">    constructor(opts) &#123;</div><div class="line">        this.id;</div><div class="line">        this.speed = opts.speed ? opts.speed: 0.01;</div><div class="line">        this.direction = opts.direction ? opts.direction: 0;</div><div class="line">        this.name = opts.name ? opts.name: this.randomName();</div><div class="line">        this.life = Const.DroneParam.LIFE;</div><div class="line">        this.bullets = [];</div><div class="line">        this.firing = false;</div><div class="line">        this.point = &#123;</div><div class="line">            type: &apos;Point&apos;,</div><div class="line">            coordinates: [121, 31]</div><div class="line">        &#125;</div><div class="line">        this.bulletNum = 2;</div><div class="line">    &#125;</div><div class="line">    // .... 省略飞控代码。。  </div><div class="line">  </div><div class="line">    fire () &#123;</div><div class="line">        // if not firing, start firing for specific duration.</div><div class="line">        if (!this.firing) &#123;</div><div class="line">            for (let i = 0; i &lt; this.bulletNum; i ++) &#123;</div><div class="line">                this.bullets.push(new Bullet(this));</div><div class="line">            &#125;</div><div class="line">            this.firing = true;</div><div class="line">            setTimeout(() =&gt; this.firing = false, Cost.DroneParam.FIRINGTIME);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>下面简单看下<strong>bullet.js </strong>的结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * Bullet based on Drone instance</div><div class="line"> */</div><div class="line">export default class Bullet &#123;</div><div class="line">    // opts should contain the Drone&apos;s direction and geometry</div><div class="line">    constructor(opts) &#123;</div><div class="line">        this.id;</div><div class="line">        this.direciton = opts.direction ? opts.direction: 0;</div><div class="line">        this.spoint = &#123;</div><div class="line">            type: &apos;Point&apos;,</div><div class="line">            coordinates: [0, 0]</div><div class="line">        &#125;;</div><div class="line">        // DeepCopy the drone coords to bullet.</div><div class="line">        this.spoint.coordinates[0] = opts.point.coordinates[0];</div><div class="line">        this.spoint.coordinates[1] = opts.point.coordinates[1];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>常量模块，包含静态属性，无需实例化直接调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">export default class Const &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// Static Props outside of class definition</div><div class="line">Const.DroneParam = &#123;</div><div class="line">    MAXSPEED: 3.999,</div><div class="line">    FIRINGTIME: 800,</div><div class="line">    LIFE: 10,</div><div class="line">    // Firing range.. 0.2 rad in LngLat</div><div class="line">    RANGE: 0.2 </div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>至此，这就完成了几个基础模块的编写，<strong>注意：</strong> 现在drone.js, bullet.js const.js 这几个模块都在项目的src文件夹下，基于Babel 和 Webpack 转码打包需要如下过程：</p>
+<h4 id="Babel-和Webpack-安装配置"><a href="#Babel-和Webpack-安装配置" class="headerlink" title="Babel 和Webpack 安装配置"></a>Babel 和Webpack 安装配置</h4><ul>
+<li><p>首先npm <strong>安装Babel 和 Webpack</strong> 库：</p>
+<blockquote>
+<p>npm install babel-cli babel-core babel-loader webpack babel-preset-latest –save-dev</p>
+</blockquote>
+</li>
+<li><p>第二，配置 .babelrc 。在项目根目录下创建 <strong>.babelrc</strong>，前面有一个点啊，别说没玩过linux。。配置文件都这熊样，内容跟官网一样。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; &quot;presets&quot;: [&quot;latest&quot;] &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>第三，配置 <strong>webpack.config.js</strong>如下.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">    entry: &#123;</div><div class="line">        index: [</div><div class="line">            &quot;./src/app.js&quot;</div><div class="line">            ]</div><div class="line">    &#125;,</div><div class="line">    output: &#123;</div><div class="line">        path: &quot;./dist/&quot;,</div><div class="line">        filename: &quot;bundle.js&quot;,</div><div class="line">        // app.js 中导出的模块都在Alex 这个Root 命名空间下</div><div class="line">        library: &apos;Alex&apos;,</div><div class="line">        libraryTarget: &apos;umd&apos;,</div><div class="line">    &#125;,</div><div class="line">    module: &#123;</div><div class="line">        loaders: [</div><div class="line">        &#123;</div><div class="line">            // 用babel 作为 js loader，打包前转码为es5，没有中间文件</div><div class="line">            test: /\.js$/,</div><div class="line">            exclude: /node_modules/,</div><div class="line">            loader: &apos;babel&apos;</div><div class="line">        &#125;]</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>说明一下，entry.index 指向的 ./src/app.js 是应用的入口文件，也就是说，drone， bullet 等等模块是写好了，但是还需要一个Root 模块来<strong>导出所有模块（API模式）或者启动应用（APP模式）</strong>。 当然<strong>上述两个模式是我胡诌的</strong>，但是经过实践确实证明这两种模式对应模块化的不同需求。</p>
+<ul>
+<li>假如你的 <strong>业务逻辑代码</strong> 都需要 采用es6 来模块化编写（往往是<strong>大型应用</strong>），那么你的<strong>app.js 应该包含业务代码</strong>（APP模式） </li>
+<li>假如你的 模块<strong>只是作为 API </strong>供外部代码调用，比如 <a href="https://github.com/f3earth/f3earth" target="_blank" rel="external">f3earth</a> 这样的采用es6 编写的 API,那么你的app.js 应该只包含<strong>模块导出</strong>的过程（API模式）</li>
+</ul>
+<p>比如我的app.js 长这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import Drone from &apos;./drone&apos;;</div><div class="line">// 引入自行封装的Canvas，渲染游戏场景</div><div class="line">import Canvas from &apos;./chart/canvas&apos;;</div><div class="line"></div><div class="line">export &#123;</div><div class="line">        Drone,</div><div class="line">        Canvas</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里将所有子模块再次导出为一个根模块，对应webpack.config.js 中配置的名为 <strong>Alex 的根模块</strong>。在业务代码中通过 Alex.Drone, Alex.Canvas 来调用不同的类。<br>至此，就完成了打包前的工作，在根目录下 cmd中 通过webpack命令开始打包。完成之后，在 dist 目录下产生 bundle.js，那么这个文件包含了我们刚才所编写的所有模块，可供业务代码调用。</p>
+<p>如果想详细了解 Babel，可以直接参考其<a href="http://babeljs.io/docs/setup/" target="_blank" rel="external">官网栗子</a>，各种babel 的用法（npm script，或者在webpack中作为loader）<br>如果想了解更多关于webpack，可以参考我看过比较简明易懂的 <a href="http://www.w2bc.com/Article/50764" target="_blank" rel="external">webpack 入门</a> 这篇文章</p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>根据上面的过程，我基本编写了一个架子，有了几个基础类，但是功能还很弱，而且基于Canvas 的渲染类还在开发。你看看，这都是些造轮子的工作，但是难免有些人揍喜欢造轮子。。苏美尔人造出轮子后还是有人在不断通过造轮子学习。</p>
+<p>最后我把项目代码放到了<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github</a>上，欢迎想了解 <strong>ES6 模块化</strong>以及 <strong>Webpack 打包以及SystemJS</strong> 的同学去围观，clone 下来改装下可以打造自己的飞机大战啊哈哈！ 另外也挂出我放在云服务器上<a href="http://123.206.201.245:3000/" target="_blank" rel="external">Angular Demo</a>，比较简陋，欢迎围观。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/Webpack/" rel="tag"># Webpack</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/04/2注意安全（2）！XSRF跨站伪造请求/" rel="next" title="注意安全（2）！XSRF跨站伪造请求">
+                <i class="fa fa-chevron-left"></i> 注意安全（2）！XSRF跨站伪造请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/28/Angular-worktile/" rel="prev" title="Angular_worktile和Angular_largeList组件">
+                Angular_worktile和Angular_largeList组件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="alex huang" />
+          <p class="site-author-name" itemprop="name">alex huang</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/alex2wong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-简单入门"><span class="nav-number">1.</span> <span class="nav-text">ES6 简单入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义Class"><span class="nav-number">1.1.</span> <span class="nav-text">定义Class</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#es6-私有属性和方法定义"><span class="nav-number">1.2.</span> <span class="nav-text">es6 私有属性和方法定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#class-静态方法"><span class="nav-number">1.3.</span> <span class="nav-text">class 静态方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6转码打包"><span class="nav-number">2.</span> <span class="nav-text">ES6转码打包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模块编写过程"><span class="nav-number">2.1.</span> <span class="nav-text">模块编写过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Babel-和Webpack-安装配置"><span class="nav-number">2.2.</span> <span class="nav-text">Babel 和Webpack 安装配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alex huang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
