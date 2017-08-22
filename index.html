@@ -239,6 +239,153 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2017/08/22/注意安全3/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="alex huang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Space Shuttle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Space Shuttle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/22/注意安全3/" itemprop="url">
+                  注意安全！3.网站升级HTTP2与强制HTTPS
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T10:14:00+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="nginx-升级1-12-开启HTTP2"><a href="#nginx-升级1-12-开启HTTP2" class="headerlink" title="nginx 升级1.12 开启HTTP2"></a>nginx 升级1.12 开启HTTP2</h3><p>最近把网站升级到了HTTPS， 之后还将把当前一些应用的WebSocket 连接升级为 WSS连接，以安全地传输消息。最开始我本是为了测试 HTTP2 不限制请求并发数在切片请求中的优势。 但为了实现这一点，就顺手给网站在 Godaddy 上申请了域名和解析，并且通过Let’s Encrypt （<a href="http://www.jianshu.com/p/edecc78719cb" target="_blank" rel="external">这篇博文很清楚</a>） 申请了SSL 证书。<br><a href="https://www.ssllabs.com/ssltest" target="_blank" rel="external">ssllabs 安全评测</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-484b6c757fa9a142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网站安全评级"></p>
+<p>关于OpenSSL 和 Nginx 新版本的本地编译安装就不多说了，我基本都是在linux 云服务器上搞，注意make 之前给Nginx configure 一下， 使得编译时导出这俩与HTTP2相关的module</p>
+<blockquote>
+<p>.configure –prefix=/etc/nginx –with-http_ssl_module –with-http_v2_module </p>
+</blockquote>
+<p>make 结束后，便会在objs 文件夹中生成按照刚才配置编译的 nginx，软连接一下即可，杀掉原来的nginx 服务实例。启动这个带有http2 module 的nginx，在网站配置中加入对端口的监听，并采用HTTP2 协议即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># ssl configuration</div><div class="line">listen 443 ssl http2 default_server;</div><div class="line">ssl on;</div><div class="line"># ... 指定 证书和密钥地址</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-1d2f0cc1ff304900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="可以看出网站目前都通过HTTP2 协议传输数据"></p>
+<h3 id="开启HSTS"><a href="#开启HSTS" class="headerlink" title="开启HSTS"></a>开启HSTS</h3><p>这回主要记一下关于STS 的事儿。<strong>HTTP Strict Transport Security</strong> (通常简称为<em>HSTS</em>) 是一个安全功能，它通过服务器response header的形式告诉浏览器只能通过HTTPS访问当前资源, 禁止<a href="https://developer.mozilla.org/en/HTTP" target="_blank" rel="external">HTTP</a>方式.</p>
+<p>摘自：<a href="https://developer.mozilla.org" target="_blank" rel="external">https://developer.mozilla.org</a><br>一个网站接受一个HTTP的请求，然后跳转到HTTPS，用户可能在开始跳转前，通过没有加密的方式和服务器对话，比如，用户输入<a href="http://foo.com或者直接foo.com。" target="_blank" rel="external">http://foo.com或者直接foo.com。</a></p>
+<p>这样存在中间人攻击潜在威胁，跳转过程可能被恶意网站利用来直接接触用户信息，而不是原来的加密信息。</p>
+<p>网站通过HTTP Strict Transport Security通知浏览器，这个网站禁止使用HTTP方式加载，浏览器应该自动把所有尝试使用HTTP的请求自动替换为HTTPS请求</p>
+<p>现实案例</p>
+<blockquote>
+<p>你连接到一个免费WiFi接入点，然后开始浏览网站，访问你的网上银行，查看你的支出，并且支付一些订单。很不幸，你接入的WiFi实际上是黑客的笔记本热点，他们<strong>拦截了你最初的HTTP请求</strong>，然后跳转到一个你银行网站一模一样的钓鱼网站。 现在，你的隐私数据暴露给黑客了。</p>
+<p>Strict Transport Security解决了这个问题；只要你通过HTTPS请求访问银行网站，并且银行网站配置好Strict Transport Security，你的浏览器知道自动使用HTTPS请求，这可以阻止黑客的中间人攻击的把戏。</p>
+</blockquote>
+<h4 id="Nginx-设置HSTS"><a href="#Nginx-设置HSTS" class="headerlink" title="Nginx 设置HSTS"></a>Nginx 设置HSTS</h4><p>编辑你的Nginx具体网站配置文件，在SSL Configuration 中添加SSL key和cert 签名证书，并且配置add header，让每一个http response 都具有STS 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// nginx 网站部分配置内容</div><div class="line"># ssl configuration</div><div class="line">listen 443 ssl http2 default_server;</div><div class="line">ssl on;</div><div class="line">ssl_certificate [cert 路径]</div><div class="line">ssl_certificate_key [private key 路径]</div><div class="line">add_header Strict-Transport-Security &quot;max-age=63072000; includeSubdomains; &quot;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>max-age</strong> 表示STS 策略的过期时间，也就是浏览器在收到带有 Strict Transport Security -<br>response header 多久后过期，就可以转为http 请求.</li>
+<li><strong>includeSubdomains</strong> 表明 STS 策略也应用到 当前域名的子域名。</li>
+</ul>
+<p>如此这般，就已经开启了STS，这使得服务器每次response都告诉浏览器所有请求都强制使用https，就算用户手动输入http 地址也会在浏览器内部替换为https 请求，在根源上杜绝浏览器与服务器建立非安全连接。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-f71eb66edfbb7f02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="307 浏览器内部重定向，Request URL 本来是http，浏览器自动替换为https，重新发送了第二个请求 "></p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>为什么我一定要对网站启用https，主要是为了测试 https 对数据传输的加密，网站性能。特别是涉及到用户个人聊天记录、支付信息等隐私数据，必须采用 SSL加密传输，才能<strong>防止数据传输过程被中间人劫持、篡改</strong>。<br>如今网络安全形式愈演愈烈，不论是阿里巴巴还是百度，都在几年前率先全站升级为HTTPS，<a href="https://anapub.geoq.cn" target="_blank" rel="external">GeoQ Ana</a>这样的在线制图平台也采用HTTPS 来实现用户隐私数据（往往是商业数据）的上传，保证平台的数据安全性。 </p>
+<p>So，作为一个兼职网络安全的前端工程师，希望大家注意安全，哈哈哈。</p>
+<p>参考文章：</p>
+<p><a href="http://www.jianshu.com/p/edecc78719cb" target="_blank" rel="external">快速搭建HTTP2 网站</a></p>
+<p><a href="http://www.barretlee.com/blog/2015/10/22/hsts-intro/" target="_blank" rel="external">你所不知道的 HSTS</a></p>
+<p><a href="https://huangyixiu.co" target="_blank" rel="external">一休哥升级到HTTP2的网站</a> </p>
+<p><a href="http://www.jianshu.com/p/aa9b7c717c84" target="_blank" rel="external">注意安全系列第一篇</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2017/07/28/pyCaffee-Init/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -803,7 +950,7 @@
 <p>这里将所有子模块再次导出为一个根模块，对应webpack.config.js 中配置的名为 <strong>Alex 的根模块</strong>。在业务代码中通过 Alex.Drone, Alex.Canvas 来调用不同的类。<br>至此，就完成了打包前的工作，在根目录下 cmd中 通过webpack命令开始打包。完成之后，在 dist 目录下产生 bundle.js，那么这个文件包含了我们刚才所编写的所有模块，可供业务代码调用。</p>
 <p>如果想详细了解 Babel，可以直接参考其<a href="http://babeljs.io/docs/setup/" target="_blank" rel="external">官网栗子</a>，各种babel 的用法（npm script，或者在webpack中作为loader）<br>如果想了解更多关于webpack，可以参考我看过比较简明易懂的 <a href="http://www.w2bc.com/Article/50764" target="_blank" rel="external">webpack 入门</a> 这篇文章</p>
 <h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>根据上面的过程，我基本编写了一个架子，有了几个基础类，但是功能还很弱，而且基于Canvas 的渲染类还在开发。你看看，这都是些造轮子的工作，但是难免有些人揍喜欢造轮子。。苏美尔人造出轮子后还是有人在不断通过造轮子学习。</p>
-<p>最后我把项目代码放到了<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github</a>上，欢迎想了解 <strong>ES6 模块化</strong>以及 <strong>Webpack 打包以及SystemJS</strong> 的同学去围观，clone 下来改装下可以打造自己的飞机大战啊哈哈！ 另外也挂出我放在云服务器上<a href="http://123.206.201.245:3000/" target="_blank" rel="external">Angular Demo</a>，比较简陋，欢迎围观。</p>
+<p>最后我把项目代码放到了<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github</a>上，欢迎想了解 <strong>ES6 模块化</strong>以及 <strong>Webpack 打包以及SystemJS</strong> 的同学去围观，clone 下来改装下可以打造自己的飞机大战啊哈哈！ 另外也挂出我放在云服务器上<a href="http://111.231.11.20:3000/" target="_blank" rel="external">Angular Demo</a>，比较简陋，欢迎围观。</p>
 
           
         
@@ -1399,7 +1546,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1409,7 +1556,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://alex2wong.github.io/2017/08/22/%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A83/</loc>
+    
+    <lastmod>2017-08-22T04:51:33.786Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://alex2wong.github.io/2017/07/28/pyCaffee-Init/</loc>
     
-    <lastmod>2017-07-28T03:00:12.317Z</lastmod>
+    <lastmod>2017-08-22T04:50:15.953Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/15/DIY%20drone%20game%20with%20es6%20module/</loc>
+    
+    <lastmod>2017-07-28T03:12:05.322Z</lastmod>
     
   </url>
   
@@ -19,13 +33,6 @@
     <loc>http://alex2wong.github.io/2017/07/28/NodejsProxy/</loc>
     
     <lastmod>2017-07-28T02:59:12.318Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/12/15/DIY%20drone%20game%20with%20es6%20module/</loc>
-    
-    <lastmod>2017-07-28T02:59:00.374Z</lastmod>
     
   </url>
   

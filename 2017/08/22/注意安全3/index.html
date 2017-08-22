@@ -1,0 +1,656 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="网络安全," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="nginx 升级1.12 开启HTTP2最近把网站升级到了HTTPS， 之后还将把当前一些应用的WebSocket 连接升级为 WSS连接，以安全地传输消息。最开始我本是为了测试 HTTP2 不限制请求并发数在切片请求中的优势。 但为了实现这一点，就顺手给网站在 Godaddy 上申请了域名和解析，并且通过Let’s Encrypt （这篇博文很清楚） 申请了SSL 证书。ssllabs 安全评测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="注意安全！3.网站升级HTTP2与强制HTTPS">
+<meta property="og:url" content="http://alex2wong.github.io/2017/08/22/注意安全3/index.html">
+<meta property="og:site_name" content="Space Shuttle">
+<meta property="og:description" content="nginx 升级1.12 开启HTTP2最近把网站升级到了HTTPS， 之后还将把当前一些应用的WebSocket 连接升级为 WSS连接，以安全地传输消息。最开始我本是为了测试 HTTP2 不限制请求并发数在切片请求中的优势。 但为了实现这一点，就顺手给网站在 Godaddy 上申请了域名和解析，并且通过Let’s Encrypt （这篇博文很清楚） 申请了SSL 证书。ssllabs 安全评测">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-484b6c757fa9a142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-1d2f0cc1ff304900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-f71eb66edfbb7f02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-22T04:51:33.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="注意安全！3.网站升级HTTP2与强制HTTPS">
+<meta name="twitter:description" content="nginx 升级1.12 开启HTTP2最近把网站升级到了HTTPS， 之后还将把当前一些应用的WebSocket 连接升级为 WSS连接，以安全地传输消息。最开始我本是为了测试 HTTP2 不限制请求并发数在切片请求中的优势。 但为了实现这一点，就顺手给网站在 Godaddy 上申请了域名和解析，并且通过Let’s Encrypt （这篇博文很清楚） 申请了SSL 证书。ssllabs 安全评测">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-484b6c757fa9a142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://alex2wong.github.io/2017/08/22/注意安全3/"/>
+
+
+
+
+
+  <title> 注意安全！3.网站升级HTTP2与强制HTTPS | Space Shuttle </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Space Shuttle</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2017/08/22/注意安全3/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="alex huang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Space Shuttle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Space Shuttle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                注意安全！3.网站升级HTTP2与强制HTTPS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-22T10:14:00+08:00">
+                2017-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="nginx-升级1-12-开启HTTP2"><a href="#nginx-升级1-12-开启HTTP2" class="headerlink" title="nginx 升级1.12 开启HTTP2"></a>nginx 升级1.12 开启HTTP2</h3><p>最近把网站升级到了HTTPS， 之后还将把当前一些应用的WebSocket 连接升级为 WSS连接，以安全地传输消息。最开始我本是为了测试 HTTP2 不限制请求并发数在切片请求中的优势。 但为了实现这一点，就顺手给网站在 Godaddy 上申请了域名和解析，并且通过Let’s Encrypt （<a href="http://www.jianshu.com/p/edecc78719cb" target="_blank" rel="external">这篇博文很清楚</a>） 申请了SSL 证书。<br><a href="https://www.ssllabs.com/ssltest" target="_blank" rel="external">ssllabs 安全评测</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-484b6c757fa9a142.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="网站安全评级"></p>
+<p>关于OpenSSL 和 Nginx 新版本的本地编译安装就不多说了，我基本都是在linux 云服务器上搞，注意make 之前给Nginx configure 一下， 使得编译时导出这俩与HTTP2相关的module</p>
+<blockquote>
+<p>.configure –prefix=/etc/nginx –with-http_ssl_module –with-http_v2_module </p>
+</blockquote>
+<p>make 结束后，便会在objs 文件夹中生成按照刚才配置编译的 nginx，软连接一下即可，杀掉原来的nginx 服务实例。启动这个带有http2 module 的nginx，在网站配置中加入对端口的监听，并采用HTTP2 协议即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># ssl configuration</div><div class="line">listen 443 ssl http2 default_server;</div><div class="line">ssl on;</div><div class="line"># ... 指定 证书和密钥地址</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-1d2f0cc1ff304900.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="可以看出网站目前都通过HTTP2 协议传输数据"></p>
+<h3 id="开启HSTS"><a href="#开启HSTS" class="headerlink" title="开启HSTS"></a>开启HSTS</h3><p>这回主要记一下关于STS 的事儿。<strong>HTTP Strict Transport Security</strong> (通常简称为<em>HSTS</em>) 是一个安全功能，它通过服务器response header的形式告诉浏览器只能通过HTTPS访问当前资源, 禁止<a href="https://developer.mozilla.org/en/HTTP" target="_blank" rel="external">HTTP</a>方式.</p>
+<p>摘自：<a href="https://developer.mozilla.org" target="_blank" rel="external">https://developer.mozilla.org</a><br>一个网站接受一个HTTP的请求，然后跳转到HTTPS，用户可能在开始跳转前，通过没有加密的方式和服务器对话，比如，用户输入<a href="http://foo.com或者直接foo.com。" target="_blank" rel="external">http://foo.com或者直接foo.com。</a></p>
+<p>这样存在中间人攻击潜在威胁，跳转过程可能被恶意网站利用来直接接触用户信息，而不是原来的加密信息。</p>
+<p>网站通过HTTP Strict Transport Security通知浏览器，这个网站禁止使用HTTP方式加载，浏览器应该自动把所有尝试使用HTTP的请求自动替换为HTTPS请求</p>
+<p>现实案例</p>
+<blockquote>
+<p>你连接到一个免费WiFi接入点，然后开始浏览网站，访问你的网上银行，查看你的支出，并且支付一些订单。很不幸，你接入的WiFi实际上是黑客的笔记本热点，他们<strong>拦截了你最初的HTTP请求</strong>，然后跳转到一个你银行网站一模一样的钓鱼网站。 现在，你的隐私数据暴露给黑客了。</p>
+<p>Strict Transport Security解决了这个问题；只要你通过HTTPS请求访问银行网站，并且银行网站配置好Strict Transport Security，你的浏览器知道自动使用HTTPS请求，这可以阻止黑客的中间人攻击的把戏。</p>
+</blockquote>
+<h4 id="Nginx-设置HSTS"><a href="#Nginx-设置HSTS" class="headerlink" title="Nginx 设置HSTS"></a>Nginx 设置HSTS</h4><p>编辑你的Nginx具体网站配置文件，在SSL Configuration 中添加SSL key和cert 签名证书，并且配置add header，让每一个http response 都具有STS 字段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// nginx 网站部分配置内容</div><div class="line"># ssl configuration</div><div class="line">listen 443 ssl http2 default_server;</div><div class="line">ssl on;</div><div class="line">ssl_certificate [cert 路径]</div><div class="line">ssl_certificate_key [private key 路径]</div><div class="line">add_header Strict-Transport-Security &quot;max-age=63072000; includeSubdomains; &quot;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>max-age</strong> 表示STS 策略的过期时间，也就是浏览器在收到带有 Strict Transport Security -<br>response header 多久后过期，就可以转为http 请求.</li>
+<li><strong>includeSubdomains</strong> 表明 STS 策略也应用到 当前域名的子域名。</li>
+</ul>
+<p>如此这般，就已经开启了STS，这使得服务器每次response都告诉浏览器所有请求都强制使用https，就算用户手动输入http 地址也会在浏览器内部替换为https 请求，在根源上杜绝浏览器与服务器建立非安全连接。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1950967-f71eb66edfbb7f02.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="307 浏览器内部重定向，Request URL 本来是http，浏览器自动替换为https，重新发送了第二个请求 "></p>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>为什么我一定要对网站启用https，主要是为了测试 https 对数据传输的加密，网站性能。特别是涉及到用户个人聊天记录、支付信息等隐私数据，必须采用 SSL加密传输，才能<strong>防止数据传输过程被中间人劫持、篡改</strong>。<br>如今网络安全形式愈演愈烈，不论是阿里巴巴还是百度，都在几年前率先全站升级为HTTPS，<a href="https://anapub.geoq.cn" target="_blank" rel="external">GeoQ Ana</a>这样的在线制图平台也采用HTTPS 来实现用户隐私数据（往往是商业数据）的上传，保证平台的数据安全性。 </p>
+<p>So，作为一个兼职网络安全的前端工程师，希望大家注意安全，哈哈哈。</p>
+<p>参考文章：</p>
+<p><a href="http://www.jianshu.com/p/edecc78719cb" target="_blank" rel="external">快速搭建HTTP2 网站</a></p>
+<p><a href="http://www.barretlee.com/blog/2015/10/22/hsts-intro/" target="_blank" rel="external">你所不知道的 HSTS</a></p>
+<p><a href="https://huangyixiu.co" target="_blank" rel="external">一休哥升级到HTTP2的网站</a> </p>
+<p><a href="http://www.jianshu.com/p/aa9b7c717c84" target="_blank" rel="external">注意安全系列第一篇</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络安全/" rel="tag"># 网络安全</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/28/pyCaffee-Init/" rel="next" title="pyCaffee对象识别上手1">
+                <i class="fa fa-chevron-left"></i> pyCaffee对象识别上手1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="alex huang" />
+          <p class="site-author-name" itemprop="name">alex huang</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/alex2wong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-升级1-12-开启HTTP2"><span class="nav-number">1.</span> <span class="nav-text">nginx 升级1.12 开启HTTP2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启HSTS"><span class="nav-number">2.</span> <span class="nav-text">开启HSTS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx-设置HSTS"><span class="nav-number">2.1.</span> <span class="nav-text">Nginx 设置HSTS</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">alex huang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
