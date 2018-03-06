@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,18 +80,15 @@
 
 
 
-<meta name="description" content="最近突发奇想要把无人机的图像数据拿来做目标跟踪，因为实在不满意大疆不推送软件更新的做法，只好自己来实现下，在几个机器学习框架中挑选了一个caffe ，比较好上手的。。另外几个Torch，TensorFlow也不错。只是最开始直接干Caffe 了，所以TensorFlow之后再弄吧。 结果就是在云服务器上，笔记本电脑上，安卓手机上分别搞了机器学习的环境和APP，可以支持图像分类，目标识别。但离实用还">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pyCaffee对象识别上手1">
 <meta property="og:url" content="http://alex2wong.github.io/2017/07/28/pyCaffee-Init/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="最近突发奇想要把无人机的图像数据拿来做目标跟踪，因为实在不满意大疆不推送软件更新的做法，只好自己来实现下，在几个机器学习框架中挑选了一个caffe ，比较好上手的。。另外几个Torch，TensorFlow也不错。只是最开始直接干Caffe 了，所以TensorFlow之后再弄吧。 结果就是在云服务器上，笔记本电脑上，安卓手机上分别搞了机器学习的环境和APP，可以支持图像分类，目标识别。但离实用还">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-2e100ca0e627abad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-d24133c8240dc749.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-28T03:00:12.317Z">
+<meta property="og:updated_time" content="2018-03-06T10:32:30.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pyCaffee对象识别上手1">
-<meta name="twitter:description" content="最近突发奇想要把无人机的图像数据拿来做目标跟踪，因为实在不满意大疆不推送软件更新的做法，只好自己来实现下，在几个机器学习框架中挑选了一个caffe ，比较好上手的。。另外几个Torch，TensorFlow也不错。只是最开始直接干Caffe 了，所以TensorFlow之后再弄吧。 结果就是在云服务器上，笔记本电脑上，安卓手机上分别搞了机器学习的环境和APP，可以支持图像分类，目标识别。但离实用还">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-2e100ca0e627abad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -104,9 +97,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -193,22 +186,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -289,6 +292,24 @@
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -314,8 +335,8 @@
       
 
       
-        <p>最近突发奇想要把无人机的图像数据拿来做目标跟踪，因为实在不满意大疆不推送软件更新的做法，只好自己来实现下，在几个机器学习框架中挑选了一个caffe ，比较好上手的。。另外几个Torch，TensorFlow也不错。只是最开始直接干Caffe 了，所以TensorFlow之后再弄吧。 结果就是在云服务器上，笔记本电脑上，安卓手机上分别搞了机器学习的环境和APP，可以支持图像分类，目标识别。但离实用还差得比较远，慢慢来</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-2e100ca0e627abad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这张识别效果还是可以的"></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">最近突发奇想要把无人机的图像数据拿来做目标跟踪，因为实在不满意大疆不推送软件更新的做法，只好自己来实现下，在几个机器学习框架中挑选了一个caffe ，比较好上手的。。另外几个Torch，TensorFlow也不错。只是最开始直接干Caffe 了，所以TensorFlow之后再弄吧。 结果就是在云服务器上，笔记本电脑上，安卓手机上分别搞了机器学习的环境和APP，可以支持图像分类，目标识别。但离实用还差得比较远，慢慢来<p></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-2e100ca0e627abad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="这张识别效果还是可以的" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-2e100ca0e627abad.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这张识别效果还是可以的"></a></p>
 <hr>
 <h3 id="Caffe-和PyCaffe-环境搭建和demo运行"><a href="#Caffe-和PyCaffe-环境搭建和demo运行" class="headerlink" title="Caffe 和PyCaffe 环境搭建和demo运行"></a>Caffe 和PyCaffe 环境搭建和demo运行</h3><p>主要问题集中在编译这一块，首先是caffe （C++ 项目）的依赖项，另外pycaffe 依赖项问题较多.<br>参考官网的<a href="http://caffe.berkeleyvision.org/installation.html" target="_blank" rel="external">安装说明</a>，我这里重点<strong>只说坑</strong>， 环境基于Ubuntu16，Ubuntu14，都试过了。</p>
 <p>首先简单说明下，Caffe 是基于C++源码（github）编译，在这个基础上再通过git clone py-faster-rcnn 这个项目来编译Python 的接口。<br>如下几个坑给后人查阅</p>
@@ -337,7 +358,7 @@
 <li>最终还可能遇到机器内存不够的情况。。<strong>SWAP</strong> 把云服务器或者虚拟机的虚拟内存提高点，一般实体机不会遇到这个情况。</li>
 </ul>
 <p><strong>以上过程中找到的一些博文，作为填坑的参考</strong>：<br><a href="http://blog.sina.com.cn/s/blog_679f93560102wpyf.html" target="_blank" rel="external">纯CPU环境下装Caffe</a><br><a href="http://www.cnblogs.com/justinzhang/p/5386837.html" target="_blank" rel="external">CPU环境下装Caffe2</a><br><a href="https://github.com/rbgirshick/py-faster-rcnn/issues/8" target="_blank" rel="external">github上关于CPU运行的几个issue</a></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-d24133c8240dc749.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目标就是要借助无人机图传识别并且跟踪指定对象"></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-d24133c8240dc749.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="目标就是要借助无人机图传识别并且跟踪指定对象" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-d24133c8240dc749.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="目标就是要借助无人机图传识别并且跟踪指定对象"></a></p>
 <hr>
 <h3 id="一些关于机器学习与GIS应用结合的思考"><a href="#一些关于机器学习与GIS应用结合的思考" class="headerlink" title="一些关于机器学习与GIS应用结合的思考"></a>一些关于机器学习与GIS应用结合的思考</h3><p>看了些gis公司关于这方面的研究，主要有几类应用方向：</p>
 <ul>
@@ -349,7 +370,12 @@
 </ul>
 <p>初步环境已经搭好了，后面继续研究如何实时对<strong>框选样本</strong>进行识别。</p>
 <h3 id="参考资料："><a href="#参考资料：" class="headerlink" title="参考资料："></a>参考资料：</h3><p><a href="https://github.com/BVLC/caffe" target="_blank" rel="external">caffe github项目</a><br><a href="https://github.com/caffe2/caffe2" target="_blank" rel="external">caffe2 项目地址</a><br><a href="http://opencv.org/about.html" target="_blank" rel="external">opencv 官网</a></p>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -394,6 +420,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/22/注意安全3/" rel="prev" title="注意安全！3.网站升级HTTP2与强制HTTPS">
+                注意安全！3.网站升级HTTP2与强制HTTPS <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -456,24 +486,31 @@
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -490,6 +527,15 @@
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -538,7 +584,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -553,7 +599,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -585,8 +631,6 @@
 
 
 
-  
-
 
 
   
@@ -603,9 +647,6 @@
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

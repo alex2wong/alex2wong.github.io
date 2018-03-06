@@ -2,51 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://alex2wong.github.io/categories/index.html</loc>
+    
+    <lastmod>2018-03-06T10:36:36.518Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://alex2wong.github.io/2017/08/22/%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A83/</loc>
     
-    <lastmod>2017-08-22T04:51:33.786Z</lastmod>
+    <lastmod>2018-03-06T10:32:39.493Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://alex2wong.github.io/2017/07/28/pyCaffee-Init/</loc>
     
-    <lastmod>2017-08-22T04:50:15.953Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2016/12/15/DIY%20drone%20game%20with%20es6%20module/</loc>
-    
-    <lastmod>2017-07-28T03:12:05.322Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://alex2wong.github.io/2017/07/28/Angular-worktile/</loc>
-    
-    <lastmod>2017-07-28T02:59:34.834Z</lastmod>
+    <lastmod>2018-03-06T10:32:30.471Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://alex2wong.github.io/2017/07/28/NodejsProxy/</loc>
     
-    <lastmod>2017-07-28T02:59:12.318Z</lastmod>
+    <lastmod>2018-03-06T10:32:20.300Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2018/03/06/gallery/</loc>
+    
+    <lastmod>2018-03-06T10:31:51.738Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2016/12/15/DIY%20drone%20game%20with%20es6%20module/</loc>
+    
+    <lastmod>2018-03-06T10:31:31.783Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/2017/07/28/Angular-worktile/</loc>
+    
+    <lastmod>2018-03-06T10:30:54.649Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://alex2wong.github.io/2016/12/04/2%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A8%EF%BC%882%EF%BC%89%EF%BC%81XSRF%E8%B7%A8%E7%AB%99%E4%BC%AA%E9%80%A0%E8%AF%B7%E6%B1%82/</loc>
     
-    <lastmod>2017-07-28T02:41:23.300Z</lastmod>
+    <lastmod>2018-03-06T10:30:36.830Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://alex2wong.github.io/2016/12/02/1%E6%B3%A8%E6%84%8F%E5%AE%89%E5%85%A8%EF%BC%81XSS%20%E5%92%8C%20XSRF/</loc>
     
-    <lastmod>2017-07-28T02:37:34.526Z</lastmod>
+    <lastmod>2018-03-06T10:29:45.255Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/about/index.html</loc>
+    
+    <lastmod>2018-03-06T10:28:07.288Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://alex2wong.github.io/commonweal/index.html</loc>
+    
+    <lastmod>2018-03-06T10:16:54.636Z</lastmod>
     
   </url>
   

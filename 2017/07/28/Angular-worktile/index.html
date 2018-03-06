@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -68,7 +64,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Angular,ES6," />
+  <meta name="keywords" content="ES6,Angular," />
 
 
 
@@ -84,30 +80,18 @@
 
 
 
-<meta name="description" content="随便记录下最近的一些学习工作内容。
-基于Angular2.x 的worktile 仿制也许大家都知道，Worktile 是一个典型的基于 AngularJS的协作平台。当时Worktile 团队采用的是Angular1.x 版本，在开发过程中踩了很多坑，主要功能包括任务管理、日程安排、文件共享以及在线文档协作，其中的一些技术包括：
-
-angular-cli的使用，angular项目框架的快速搭建">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Angular_worktile和Angular_largeList组件">
 <meta property="og:url" content="http://alex2wong.github.io/2017/07/28/Angular-worktile/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="随便记录下最近的一些学习工作内容。
-基于Angular2.x 的worktile 仿制也许大家都知道，Worktile 是一个典型的基于 AngularJS的协作平台。当时Worktile 团队采用的是Angular1.x 版本，在开发过程中踩了很多坑，主要功能包括任务管理、日程安排、文件共享以及在线文档协作，其中的一些技术包括：
-
-angular-cli的使用，angular项目框架的快速搭建">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-42dc3afb2c3accb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-3ec61a6b85c9faa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-45471d51028d6ca8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-66c2028e0665fb01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-3a16c2b2a66f9bfd.gif?imageMogr2/auto-orient/strip">
-<meta property="og:updated_time" content="2017-07-28T02:59:34.834Z">
+<meta property="og:updated_time" content="2018-03-06T10:30:54.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Angular_worktile和Angular_largeList组件">
-<meta name="twitter:description" content="随便记录下最近的一些学习工作内容。
-基于Angular2.x 的worktile 仿制也许大家都知道，Worktile 是一个典型的基于 AngularJS的协作平台。当时Worktile 团队采用的是Angular1.x 版本，在开发过程中踩了很多坑，主要功能包括任务管理、日程安排、文件共享以及在线文档协作，其中的一些技术包括：
-
-angular-cli的使用，angular项目框架的快速搭建">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-42dc3afb2c3accb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -116,9 +100,9 @@ angular-cli的使用，angular项目框架的快速搭建">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -205,22 +189,32 @@ angular-cli的使用，angular项目框架的快速搭建">
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -301,6 +295,35 @@ angular-cli的使用，angular项目框架的快速搭建">
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -326,7 +349,7 @@ angular-cli的使用，angular项目框架的快速搭建">
       
 
       
-        <p>随便记录下最近的一些学习工作内容。</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">随便记录下最近的一些学习工作内容。<p></p>
 <h3 id="基于Angular2-x-的worktile-仿制"><a href="#基于Angular2-x-的worktile-仿制" class="headerlink" title="基于Angular2.x 的worktile 仿制"></a>基于Angular2.x 的worktile 仿制</h3><p>也许大家都知道，Worktile 是一个典型的基于 AngularJS的协作平台。当时Worktile 团队采用的是Angular1.x 版本，在开发过程中踩了很多坑，主要功能包括任务管理、日程安排、文件共享以及在线文档协作，其中的一些技术包括：</p>
 <ul>
 <li>angular-cli的使用，angular项目框架的快速搭建</li>
@@ -335,15 +358,15 @@ angular-cli的使用，angular项目框架的快速搭建">
 <li>基于Flex的自适应页面布局</li>
 </ul>
 <p>那么在前期开发中，主要先模仿下基本的<strong>页面布局</strong>和<strong>任务面板模块</strong>。基于Socket的实时消息推送功能在要求不高的情况下可采用Socket.io 来完成（已经在飞机大战中用的很多了）。作为前端工程师，当然主要从FrontEnd的角度去着手。下图是经过一段时间折腾的结果（<a href="http://111.231.11.20:3000/" target="_blank" rel="external">DEMO地址</a>），其中在 基于<strong>Rxjs/Observable </strong>的数据流 发布订阅中折腾的时间最长。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-42dc3afb2c3accb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="任务面板页面"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-3ec61a6b85c9faa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表格面板与任务面板通过Angular的Service实现数据共享"></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-42dc3afb2c3accb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="任务面板页面" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-42dc3afb2c3accb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="任务面板页面"></a></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-3ec61a6b85c9faa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="表格面板与任务面板通过Angular的Service实现数据共享" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-3ec61a6b85c9faa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表格面板与任务面板通过Angular的Service实现数据共享"></a></p>
 <p>在部署阶段，一般要考虑几个问题，如何尽量压缩代码和资源的体积，如何减少http 请求次数。通过ng cli 工具自带的build命令，可以将开发版的App 编译打包为prod 版本，prod版本中 App 所用的组件（JavaScript 代码，Html模板以及组件的CSS代码）都将压缩打包为几个bundle.js. </p>
 <blockquote>
 <p>ng build -prod</p>
 </blockquote>
 <p>如果不加-prod 选项，则默认是-dev（开发版本），相比之下，prod版的部署文件中还有gzip 格式的压缩代码，通过apache 等服务器的静态文件服务可以达到比较高的性能。 </p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-45471d51028d6ca8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="before_apache2.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-66c2028e0665fb01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="after_apache2.png"></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-45471d51028d6ca8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="before_apache2.png" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-45471d51028d6ca8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="before_apache2.png"></a></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-66c2028e0665fb01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="after_apache2.png" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-66c2028e0665fb01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="after_apache2.png"></a></p>
 <h3 id="large-select-组件实现"><a href="#large-select-组件实现" class="headerlink" title="large select 组件实现"></a>large select 组件实现</h3><p>最近完成了一个小组件开发，基于这么个需求：</p>
 <blockquote>
 <p>在Chrome和Firefox中原生的select 下拉菜单实现机制不同，Chrome在<strong>select添加options</strong>的时候就进行渲染（此时UI会处于卡顿状态），Firefox在<strong>select下拉</strong>的时候才会临时渲染。如果在下拉菜单中有几千上万条记录的时候Chrome会在加载页面时卡顿，Firefox会在下拉时卡顿。</p>
@@ -355,11 +378,16 @@ angular-cli的使用，angular项目框架的快速搭建">
 <li>可绑定至任意DOM元素</li>
 <li>控制滚动翻页的响应频率（debounce）</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-3a16c2b2a66f9bfd.gif?imageMogr2/auto-orient/strip" alt="来个简单的DEMO"></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-3a16c2b2a66f9bfd.gif?imageMogr2/auto-orient/strip" title="来个简单的DEMO" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-3a16c2b2a66f9bfd.gif?imageMogr2/auto-orient/strip" alt="来个简单的DEMO"></a></p>
 <p>下面提供两个版本的在线DEMO，其实代码几乎是一套，不过原生JS版本中需要自己完成<strong>视图的更新</strong>，这点用框架的数据绑定会方便很多。<br><a href="https://alex2wong.github.io/es6_module/src/lgselect/">基于TypeScript编译修改的原生JS版本</a><br><a href="https://alex2wong.github.io/ngx-proj/dist/">Angular2.x版本DEMO</a></p>
 <p>如果有需要的朋友，请自行修改源码。使用方法直接参考页面中的源码或者访问<a href="https://github.com/alex2wong/es6_module" target="_blank" rel="external">项目地址</a></p>
 <p>参考文章：<br><a href="https://worktile.com/blog/tech/technical-structure-of-teamwork-tool" target="_blank" rel="external">【CTO讲堂】揭秘高效协作工具背后的技术架构</a></p>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -382,9 +410,9 @@ angular-cli的使用，angular项目框架的快速搭建">
       
         <div class="post-tags">
           
-            <a href="/tags/Angular/" rel="tag"># Angular</a>
-          
             <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/Angular/" rel="tag"># Angular</a>
           
         </div>
       
@@ -468,24 +496,31 @@ angular-cli的使用，angular项目框架的快速搭建">
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -502,6 +537,15 @@ angular-cli的使用，angular项目框架的快速搭建">
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -550,7 +594,7 @@ angular-cli的使用，angular项目框架的快速搭建">
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -565,7 +609,7 @@ angular-cli的使用，angular项目框架的快速搭建">
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -597,8 +641,6 @@ angular-cli的使用，angular项目框架的快速搭建">
 
 
 
-  
-
 
 
   
@@ -615,9 +657,6 @@ angular-cli的使用，angular项目框架的快速搭建">
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

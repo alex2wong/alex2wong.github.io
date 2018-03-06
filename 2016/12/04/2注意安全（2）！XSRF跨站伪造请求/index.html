@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,18 +80,15 @@
 
 
 
-<meta name="description" content="上一篇我们说了用脚本注入去攻击小熊哥的博文评论。普通的脚本注入很容易就被前端后台全方位的脚本过滤给处理掉，完全没有杀伤力。一般来说遇到&amp;lt;, &amp;gt; , =” 等等可能加载执行脚本的用户输入，转换为&amp;amp;lt ; &amp;amp; gt ; 等等即可作为数据打印到 DOM 中，而不是作为脚本执行。详细情况参考上一篇文章 。我敢保证，@Swanky 肯定是受了我的蛊惑去 POST 了 三万多条评">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注意安全（2）！XSRF跨站伪造请求">
 <meta property="og:url" content="http://alex2wong.github.io/2016/12/04/2注意安全（2）！XSRF跨站伪造请求/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="上一篇我们说了用脚本注入去攻击小熊哥的博文评论。普通的脚本注入很容易就被前端后台全方位的脚本过滤给处理掉，完全没有杀伤力。一般来说遇到&amp;lt;, &amp;gt; , =” 等等可能加载执行脚本的用户输入，转换为&amp;amp;lt ; &amp;amp; gt ; 等等即可作为数据打印到 DOM 中，而不是作为脚本执行。详细情况参考上一篇文章 。我敢保证，@Swanky 肯定是受了我的蛊惑去 POST 了 三万多条评">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-c477e02aa4a68290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-7589054f19e7314d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-28T02:41:23.300Z">
+<meta property="og:updated_time" content="2018-03-06T10:30:36.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="注意安全（2）！XSRF跨站伪造请求">
-<meta name="twitter:description" content="上一篇我们说了用脚本注入去攻击小熊哥的博文评论。普通的脚本注入很容易就被前端后台全方位的脚本过滤给处理掉，完全没有杀伤力。一般来说遇到&amp;lt;, &amp;gt; , =” 等等可能加载执行脚本的用户输入，转换为&amp;amp;lt ; &amp;amp; gt ; 等等即可作为数据打印到 DOM 中，而不是作为脚本执行。详细情况参考上一篇文章 。我敢保证，@Swanky 肯定是受了我的蛊惑去 POST 了 三万多条评">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-c477e02aa4a68290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -104,9 +97,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -193,22 +186,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -289,6 +292,35 @@
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -314,8 +346,8 @@
       
 
       
-        <p>上一篇我们说了用脚本注入去攻击小熊哥的博文评论。普通的脚本注入很容易就被前端后台全方位的脚本过滤给处理掉，完全没有杀伤力。一般来说遇到<strong>&lt;, &gt; , =” </strong>等等可能加载执行脚本的用户输入，转换为<strong>&amp;lt ; &amp; gt ; </strong>等等即可作为数据打印到 DOM 中，而不是作为脚本执行。详细情况参考<a href="http://www.jianshu.com/p/aa9b7c717c84" target="_blank" rel="external">上一篇文章</a> 。我敢保证，<strong>@Swanky</strong> 肯定是受了我的蛊惑去 POST 了 三万多条评论导致被 <strong>@简书首席封号官</strong> 封号了。</p>
-<center><img src="http://upload-images.jianshu.io/upload_images/1950967-c477e02aa4a68290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""> </center>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">上一篇我们说了用脚本注入去攻击小熊哥的博文评论。普通的脚本注入很容易就被前端后台全方位的脚本过滤给处理掉，完全没有杀伤力。一般来说遇到<strong>&lt;, &gt; , =” </strong>等等可能加载执行脚本的用户输入，转换为<strong>&amp;lt ; &amp; gt ; </strong>等等即可作为数据打印到 DOM 中，而不是作为脚本执行。详细情况参考<a href="http://www.jianshu.com/p/aa9b7c717c84" target="_blank" rel="external">上一篇文章</a> 。我敢保证，<strong>@Swanky</strong> 肯定是受了我的蛊惑去 POST 了 三万多条评论导致被 <strong>@简书首席封号官</strong> 封号了。<p></p>
+<center><a href="http://upload-images.jianshu.io/upload_images/1950967-c477e02aa4a68290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-c477e02aa4a68290.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a> </center>
 
 
 <h3 id="伪造请求的过程"><a href="#伪造请求的过程" class="headerlink" title="伪造请求的过程"></a>伪造请求的过程</h3><p><hr><br>  这次来说说伪造请求（Cross Site Request Forgery）的事情。通俗点讲就是 有人给你发送了一个链接，然后你<strong>手贱</strong>点开，是看起来很正常的网页（A.com/index.html），结果暗中被发送了一个指向 招商银行转账服务(B.com/transfer) 的POST请求，这个请求是攻击者在A.com/index.html 脚本中伪造的，因此请求的发送方属于<strong>A.com域</strong>，而不属于<strong>B.com/transfer 的域</strong>， 所以叫做 <strong>跨站伪造请求</strong></p>
@@ -326,7 +358,7 @@
 <li>跨站伪造请求成功的前提是 B.com 提供了<strong>可供跨域调用的服务</strong>。因为我们知道大部分浏览器和服务器都禁止脚本请求跨域资源，这种行为一般不太安全。但是我非得请求呢？？ 所以除了用JSONP 来GET跨域资源，更有采用<strong>CORS（Cross-origin resource sharing，跨域资源共享是W3C标准）</strong>来实现POST，PUT请求跨域的。 CORS的详细介绍可以参考<a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="external">这里</a>.</li>
 </ol>
 <p>通常情况下，假如服务器端开启CORS配置允许任何来源的请求，就很难分辨接收到的请求是<strong>用户自主发送</strong>的（往往是和B.com同一个域下的网页），还是攻击者<strong>冒充用户身份</strong>伪造的攻击请求（往往不同域，例如A.com）。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-7589054f19e7314d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-7589054f19e7314d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-7589054f19e7314d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></a></p>
 <center>一休哥自制 XSRF 图示</center>
 
 
@@ -339,7 +371,12 @@
 <h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>现如今，网络安全形势越来越严峻，作为一个Web前端工程师，之前很少注意这一点。至此已经更新了两篇 跟前端工程师相关的网络安全 笔记了。希望大家喜欢本文，有所收获。</p>
 <p>传送门：注意安全第一篇 <a href="http://www.jianshu.com/p/aa9b7c717c84" target="_blank" rel="external">XSS 跨站脚本注入</a></p>
 <p>另外一篇很棒的英文参考 <a href="http://www.acunetix.com/websitesecurity/csrf-attacks/" target="_blank" rel="external">CSRF Attacks, XSRF or Sea-Surf – What They Are and How to Defend Against Them</a></p>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -446,24 +483,31 @@
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -480,6 +524,15 @@
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -528,7 +581,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -543,7 +596,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -575,8 +628,6 @@
 
 
 
-  
-
 
 
   
@@ -593,9 +644,6 @@
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

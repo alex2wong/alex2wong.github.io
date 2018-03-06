@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,16 +80,13 @@
 
 
 
-<meta name="description" content="blog of Alex2wong">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tagcloud">
 <meta property="og:url" content="http://alex2wong.github.io/tags/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="blog of Alex2wong">
 <meta property="og:updated_time" content="2017-07-28T02:21:29.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tagcloud">
-<meta name="twitter:description" content="blog of Alex2wong">
 
 
 
@@ -101,9 +94,9 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -196,22 +189,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -247,10 +250,10 @@
     
       <div class="tag-cloud">
         <div class="tag-cloud-title">
-            目前共计 14 个标签
+            目前共计 12 个标签
         </div>
         <div class="tag-cloud-tags">
-          <a href="/tags/Angular/" style="font-size: 12px; color: #ccc">Angular</a> <a href="/tags/Caffee/" style="font-size: 12px; color: #ccc">Caffee</a> <a href="/tags/ES6/" style="font-size: 30px; color: #111">ES6</a> <a href="/tags/Machine-Learning/" style="font-size: 12px; color: #ccc">Machine-Learning</a> <a href="/tags/Nodejs/" style="font-size: 12px; color: #ccc">Nodejs</a> <a href="/tags/ObjectDetect/" style="font-size: 12px; color: #ccc">ObjectDetect</a> <a href="/tags/Proxy/" style="font-size: 12px; color: #ccc">Proxy</a> <a href="/tags/Webpack/" style="font-size: 12px; color: #ccc">Webpack</a> <a href="/tags/网络安全/" style="font-size: 30px; color: #111">网络安全</a>
+          <a href="/tags/Angular/" style="font-size: 12px; color: #ccc">Angular</a> <a href="/tags/Caffee/" style="font-size: 12px; color: #ccc">Caffee</a> <a href="/tags/ES6/" style="font-size: 21px; color: #6f6f6f">ES6</a> <a href="/tags/Machine-Learning/" style="font-size: 12px; color: #ccc">Machine-Learning</a> <a href="/tags/Nodejs/" style="font-size: 12px; color: #ccc">Nodejs</a> <a href="/tags/ObjectDetect/" style="font-size: 12px; color: #ccc">ObjectDetect</a> <a href="/tags/Proxy/" style="font-size: 12px; color: #ccc">Proxy</a> <a href="/tags/Webpack/" style="font-size: 12px; color: #ccc">Webpack</a> <a href="/tags/gallery/" style="font-size: 12px; color: #ccc">gallery</a> <a href="/tags/网络安全/" style="font-size: 30px; color: #111">网络安全</a>
         </div>
       </div>
     
@@ -292,24 +295,31 @@
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -326,6 +336,15 @@
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -358,7 +377,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -373,7 +392,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -405,8 +424,6 @@
 
 
 
-  
-
 
 
   
@@ -423,9 +440,6 @@
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   

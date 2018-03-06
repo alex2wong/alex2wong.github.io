@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -26,10 +26,6 @@
 
 
 
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -84,23 +80,14 @@
 
 
 
-<meta name="description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
-
-Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
 <meta property="og:type" content="article">
 <meta property="og:title" content="后端代理解决资源跨域">
 <meta property="og:url" content="http://alex2wong.github.io/2017/07/28/NodejsProxy/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
-
-Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-07-28T02:59:12.318Z">
+<meta property="og:updated_time" content="2018-03-06T10:32:20.300Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后端代理解决资源跨域">
-<meta name="twitter:description" content="canvas 跨域问题如果canvas中所绘制的Image或者资源有跨域，则对canvas中的数据进行操作往往会报错，例如在地图导出或者操作像素时
-
-Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-o">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
@@ -109,9 +96,9 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     sidebar: {"position":"left","display":"post"},
-    fancybox: true,
+    fancybox: false,
     motion: true,
     duoshuo: {
       userId: '0',
@@ -198,22 +185,32 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -294,6 +291,35 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
           </span>
 
           
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/" itemprop="url" rel="index">
+                    <span itemprop="name">后端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/后端/nodejs/" itemprop="url" rel="index">
+                    <span itemprop="name">nodejs</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -319,7 +345,7 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
       
 
       
-        <h3 id="canvas-跨域问题"><a href="#canvas-跨域问题" class="headerlink" title="canvas 跨域问题"></a><strong>canvas 跨域问题</strong></h3><p>如果canvas中所绘制的Image或者资源<strong>有跨域</strong>，则对canvas中的数据进行操作往往会报错，例如在<a href="http://openlayers.org/en/latest/examples/export-map.html" target="_blank" rel="external">地图导出</a>或者操作像素时</p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <h3="" id="canvas-跨域问题"><a href="#canvas-跨域问题" class="headerlink" title="canvas 跨域问题"></a><strong>canvas 跨域问题</strong><p>如果canvas中所绘制的Image或者资源<strong>有跨域</strong>，则对canvas中的数据进行操作往往会报错，例如在<a href="http://openlayers.org/en/latest/examples/export-map.html" target="_blank" rel="external">地图导出</a>或者操作像素时</p>
 <blockquote>
 <p>Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderingContext2D’: The canvas has been tainted by cross-origin data.</p>
 </blockquote>
@@ -335,7 +361,7 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
 <p> <strong>切片下载的功能！！</strong>  \(^o^)/，后台会随着前端的请求过程，缓存图片等文件。</p>
 <hr>
 <h3 id="一起搞项目"><a href="#一起搞项目" class="headerlink" title="一起搞项目"></a>一起搞项目</h3><p>这个代理模块拿来改改参数就可以勉强用了。所以需要的弟兄们直接去 <a href="https://github.com/alex2wong/Jqmap2" target="_blank" rel="external">Github项目地址</a> 取用即可</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEMO截图"></p>
+<p><a href="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" title="DEMO截图" class="gallery-item" target="_blank" rel="external"><img src="http://upload-images.jianshu.io/upload_images/1950967-5ee23ad7c96da246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEMO截图"></a></p>
 <p>这个项目是最近比较常用的，包括了平日里做的一些小插件和DEMO之类的。比如：</p>
 <ul>
 <li>Openlayer-<a href="https://github.com/alex2wong/Jqmap2/wiki/Openlayer-%E5%AE%9E%E7%8E%B0%E5%B8%A6%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E7%9A%84%E6%A0%87%E6%B3%A8" target="_blank" rel="external">实现带碰撞检测的标注</a></li>
@@ -343,7 +369,12 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
 <li>基于Ol2和Jquery Mobile的<a href="http://alex2wong.github.io/Jqmap2/">移动端APP</a> ，这个比较早期</li>
 </ul>
 <p>还有另外一个ThreeJS项目有空也在弄，其实想<strong>基于ES6做一些模块化的ThreeJS开发</strong>，用于搭建三维游戏场景。之前代码写得比较随意，现在必须模块化，不然没法看。。先来个<a href="http://alex2wong.github.io/ThreejsDemo/index2.html">DEMO瞅瞅</a>，数据量大多等会儿，<strong>鼠标右键</strong>拖动场景。</p>
-
+</div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
+        var options = {
+            selector: '.gallery-item'
+        };
+        lightGallery(document.getElementsByClassName('.article-gallery')[0], options);
+        }</script>
       
     </div>
 
@@ -452,24 +483,31 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
                src="/images/avatar.gif"
                alt="alex huang" />
           <p class="site-author-name" itemprop="name">alex huang</p>
-          <p class="site-description motion-element" itemprop="description">blog of Alex2wong</p>
+          <p class="site-description motion-element" itemprop="description">blog of Alex2wong, love visulization, coding, photography</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">14</span>
+              
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
-              </a>
+              
             </div>
           
 
@@ -486,6 +524,15 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
                     <i class="fa fa-fw fa-github"></i>
                   
                   GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Alex_UndefinedO" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
                 </a>
               </span>
             
@@ -513,7 +560,7 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-跨域问题"><span class="nav-number">1.</span> <span class="nav-text">canvas 跨域问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求有跨域限制的服务器资源"><span class="nav-number">2.</span> <span class="nav-text">请求有跨域限制的服务器资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一起搞项目"><span class="nav-number">3.</span> <span class="nav-text">一起搞项目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求有跨域限制的服务器资源"><span class="nav-number">1.</span> <span class="nav-text">请求有跨域限制的服务器资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一起搞项目"><span class="nav-number">2.</span> <span class="nav-text">一起搞项目</span></a></li></ol></div>
             
 
           </div>
@@ -534,7 +581,7 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -549,7 +596,7 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Muse
+    NexT.Mist
   </a>
 </div>
 
@@ -581,8 +628,6 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
 
 
 
-  
-
 
 
   
@@ -599,9 +644,6 @@ Uncaught DOMException: Failed to execute ‘getImageData’ on ‘CanvasRenderin
 
   
   <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
