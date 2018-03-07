@@ -455,7 +455,7 @@ body {
 .header-inner {
   margin: 0 auto;
   padding: 100px 0 70px;
-  width: 700px;
+  width: 720px;
 }
 @media (min-width: 1600px) {
   .container .header-inner {
@@ -467,7 +467,7 @@ body {
 }
 .main-inner {
   margin: 0 auto;
-  width: 700px;
+  width: 720px;
 }
 @media (min-width: 1600px) {
   .container .main-inner {
@@ -484,7 +484,7 @@ body {
 .footer-inner {
   box-sizing: border-box;
   margin: 20px auto;
-  width: 700px;
+  width: 720px;
 }
 @media (min-width: 1600px) {
   .container .footer-inner {
@@ -847,9 +847,9 @@ pre .javascript .function {
 }
 .btn:hover,
 .post-more-link .btn:hover {
-  border-color: #222;
-  color: #222;
-  background: #fff;
+  color: #fff;
+  background: #2a2a2a;
+  transform: background .6s;
 }
 .btn-bar {
   display: block;
@@ -1426,9 +1426,10 @@ pre .javascript .function {
 .post-more-link .btn {
   color: #555;
   font-size: 14px;
-  background: transparent;
-  border-radius: 0;
+  background: #f8f8f8;
+  border-radius: 4px;
   line-height: 2;
+  padding: 6px;
 }
 .posts-expand .post-tags {
   margin-top: 40px;
@@ -2652,7 +2653,6 @@ hr {
   color: #666;
   background: none;
   border: none;
-  border-bottom: 2px solid #666;
   transition-property: border;
 }
 @media (max-width: 767px) {
