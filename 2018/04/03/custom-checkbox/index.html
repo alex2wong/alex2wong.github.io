@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="gallery," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,16 +81,14 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="My Gallery">
-<meta property="og:url" content="http://alex2wong.github.io/2018/03/06/gallery/index.html">
+<meta property="og:title" content="Checkbox 自定义效果">
+<meta property="og:url" content="http://alex2wong.github.io/2018/04/03/custom-checkbox/index.html">
 <meta property="og:site_name" content="Space Shuttle">
-<meta property="og:image" content="http://alex2wong.github.io/images/testImg.JPG">
-<meta property="og:image" content="http://alex2wong.github.io/images/testImg2.JPG">
-<meta property="og:image" content="http://alex2wong.github.io/images/testImg3.JPG">
-<meta property="og:updated_time" content="2018-03-06T10:31:51.738Z">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/4/3/1628b71816c3f86b?w=260&h=135&f=gif&s=53776">
+<meta property="og:updated_time" content="2018-04-03T13:13:56.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Gallery">
-<meta name="twitter:image" content="http://alex2wong.github.io/images/testImg.JPG">
+<meta name="twitter:title" content="Checkbox 自定义效果">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/4/3/1628b71816c3f86b?w=260&h=135&f=gif&s=53776">
 
 
 
@@ -118,13 +116,13 @@
 
 
 
-  <link rel="canonical" href="http://alex2wong.github.io/2018/03/06/gallery/"/>
+  <link rel="canonical" href="http://alex2wong.github.io/2018/04/03/custom-checkbox/"/>
 
 
 
 
 
-  <title> My Gallery | Space Shuttle </title>
+  <title> Checkbox 自定义效果 | Space Shuttle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +253,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2018/03/06/gallery/">
+  <link itemprop="mainEntityOfPage" href="http://alex2wong.github.io/2018/04/03/custom-checkbox/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="alex huang">
@@ -279,7 +277,7 @@
             
             
               
-                My Gallery
+                Checkbox 自定义效果
               
             
           </h1>
@@ -292,8 +290,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-06T17:07:35+08:00">
-                2018-03-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-03T20:14:17+08:00">
+                2018-04-03
               </time>
             
 
@@ -311,8 +309,19 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/摄影/" itemprop="url" rel="index">
-                    <span itemprop="name">摄影</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/设计/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
 
@@ -346,7 +355,14 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p=""><a href="/images/testImg.JPG" title="testImg1" class="gallery-item"><img src="/images/testImg.JPG" alt="testImg1"></a><br><a href="/images/testImg2.JPG" title="testImg1" class="gallery-item"><img src="/images/testImg2.JPG" alt="testImg1"></a><br><a href="/images/testImg3.JPG" title="testImg1" class="gallery-item"><img src="/images/testImg3.JPG" alt="testImg1"></a><p></p>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/css/lightgallery.min.css"><div class=".article-gallery" <p="">有的时候我们需要实现一些自定义的checkbox或者radio效果<br>基本的原理就是在原生的checkbox元素上层叠加一个自定义的checkbox 层，和label 的联动还是借助原生的checkbox，只不过把原生的样式都隐藏起来。<br>只要我们自定义的checkbox层正好和原生的重叠就行，再搭配一些交互效果，可以在不同浏览器中实现统一的样式。<p></p>
+<p><a href="https://user-gold-cdn.xitu.io/2018/4/3/1628b71816c3f86b?w=260&amp;h=135&amp;f=gif&amp;s=53776" title="实际效果如图" class="gallery-item" target="_blank" rel="external"><img src="https://user-gold-cdn.xitu.io/2018/4/3/1628b71816c3f86b?w=260&amp;h=135&amp;f=gif&amp;s=53776" alt="实际效果如图"></a></p>
+<p>只需要纯CSS即可实现，不过本文用的 sass，基本原理一样，很简单。</p>
+<p>首先看下HtmlTemplate 这块的结构，比较清晰，wrap 里面包含了我们自定义的div和原生的input checkbox.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"['checkbox-wrap']"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"['checkbox-box', &#123;'checkbox-box-disabled': disabled&#125;]"</span> &gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">:class</span>=<span class="string">"['checkbox-inner',&#123;'checkbox-check': checked&#125;]"</span> &gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">:id</span>=<span class="string">"cname"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">:disabled</span>=<span class="string">"disabled"</span></span></div><div class="line">      <span class="attr">:class</span>=<span class="string">"['checkbox-base']"</span> @<span class="attr">change</span>=<span class="string">"onChange"</span> <span class="attr">v-model</span>=<span class="string">"checked"</span> /&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">label</span> <span class="attr">:class</span>=<span class="string">"['checkbox-label']"</span> <span class="attr">:for</span>=<span class="string">"cname"</span>&gt;</span>&#123;&#123;label&#125;&#125;<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>css 的关键在于自定义checkbox 和原生的位置重叠，以及利于伪类元素实现check 的一瞬间动效</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 隐藏原生 checkbox --&gt;</div><div class="line">checkbox-base &#123;</div><div class="line">    opacity: 0;</div><div class="line">    width: 20px;</div><div class="line">    height: 16px;</div><div class="line">&#125;</div><div class="line">checkbox &#123; </div><div class="line">    &amp;-box &#123;</div><div class="line">    &lt;!-- check 对勾的容器 --&gt;</div><div class="line">      position: absolute;</div><div class="line">      width: 19px;</div><div class="line">      height: 19px;</div><div class="line">      border: solid 1px gray;</div><div class="line">      border-radius: 4px;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    &amp;-inner &#123;</div><div class="line">      position: absolute;</div><div class="line">      top: 3px;</div><div class="line">      left: 3px;</div><div class="line">      width: 12px;</div><div class="line">      height: 6px;</div><div class="line">      opacity: 0;</div><div class="line">      transform: rotateZ(-50deg) scale(0.1);</div><div class="line">      transition: transform .1s ease-out;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    &amp;-check &#123;</div><div class="line">    &lt;!-- 利用border来呈现对勾√ --&gt;</div><div class="line">      border-width: 0 0 2px 2px;</div><div class="line">      opacity: 1;</div><div class="line">      border-style: solid;</div><div class="line">      border-color: $color-selected;</div><div class="line">      transform: rotateZ(-50deg) scale(1);</div><div class="line">      </div><div class="line">    &lt;!-- 在对勾后用伪类加个扩散动效 --&gt;</div><div class="line">      &amp;::after &#123;</div><div class="line">        content: "";</div><div class="line">        position: absolute;</div><div class="line">        left: -6px;</div><div class="line">        top: -6px;</div><div class="line">        opacity: 0;</div><div class="line">        width: 19px;</div><div class="line">        height: 19px;</div><div class="line">        border-radius: 50%;</div><div class="line">        background: rgba(255, 100, 100, .2);</div><div class="line">        animation: ripple .2s ease-out;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      @keyframes ripple &#123;</div><div class="line">        0% &#123;</div><div class="line">          opacity: 1;</div><div class="line">          transform: scale(0.0);</div><div class="line">        &#125;</div><div class="line">        100% &#123;</div><div class="line">          opacity: 1;</div><div class="line">          transform: scale(1.8);</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>前人的想法还是挺巧妙的，奇巧淫技让我们的交互更加有趣。。这个交互的扩散效果灵感受到了Material Design 的一点影响。<br>Thanks for reading!</p>
 </div><script src="https://cdn.jsdelivr.net/lightgallery.js/1.0.1/js/lightgallery.min.js"></script><script src="/lib/lg-thumbnail.js"></script><script src="/lib/lg-pager.js"></script><script>if (typeof lightGallery !== 'undefined') {
         var options = {
             selector: '.gallery-item'
@@ -373,19 +389,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/gallery/" rel="tag"># gallery</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/22/注意安全3/" rel="next" title="注意安全！3.网站升级HTTP2与强制HTTPS">
-                <i class="fa fa-chevron-left"></i> 注意安全！3.网站升级HTTP2与强制HTTPS
+              <a href="/2018/03/06/gallery/" rel="next" title="My Gallery">
+                <i class="fa fa-chevron-left"></i> My Gallery
               </a>
             
           </div>
@@ -393,10 +403,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/03/custom-checkbox/" rel="prev" title="Checkbox 自定义效果">
-                Checkbox 自定义效果 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
