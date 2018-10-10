@@ -11,3 +11,14 @@ Photos page (Gallery) as follow:
 
 ![gallery demo](https://github.com/alex2wong/alex2wong.github.io/blob/master/images/Blog_Gallery.jpg?raw=true)
 
+
+### Post List
+
+#### Vue.js Series
+
+[vue.js pratice-1 setup env and project structure](https://www.jianshu.com/p/22984a14dcb7) <br>
+[vue.js pratice-2 understanding render function](https://github.com/alex2wong/alex2wong.github.io/issues/3)
+
+#### Babel plugins
+[babel plugin start up and practice](https://github.com/alex2wong/alex2wong.github.io/issues/4)
+
